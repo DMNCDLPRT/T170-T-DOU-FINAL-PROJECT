@@ -1,6 +1,6 @@
 const express = require("express")
 const Product = require("../models/product");
-const Order = require("../models/order");
+const { Orders } = require("../models/order");
 
 
 const viewAdminProducts = async (req, res) => {
@@ -15,12 +15,12 @@ const viewAdminProducts = async (req, res) => {
 
 const viewAdminAllOrders = async (req, res) => {
     try{
-        const orders = await Order.find({}).populate('user').populate({ 
+        const orders = await Orders.find({}).populate('user').populate({ 
             path:'orderList.item',
             model:Product        
         });
         
-        res.render('/admin/users/orders/all/history/',{ 
+        res.render('user/order',{ 
             orders,
             title: "Admin Order History" 
         })
