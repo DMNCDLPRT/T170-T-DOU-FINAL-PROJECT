@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('*', requireAuth);
 
 router.post('/user/order', userOrder);
-router.post('/user/order/verify/', userOrderVerify);
+router.post('/user/order/verify/:id', userOrderVerify);
 router.get('/user/payment/:payment_id/:error_code', userOrderPAymentFail);
 router.post('/user/order/paymentfail', userPaymentErrorCode);
 

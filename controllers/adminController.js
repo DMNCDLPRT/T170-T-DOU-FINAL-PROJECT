@@ -1,7 +1,6 @@
 const express = require("express")
 const Product = require("../models/product");
 const Order = require("../models/order");
-const { Customer } = require("../models/customer");
 
 
 const viewAdminProducts = async (req, res) => {
@@ -14,8 +13,28 @@ const viewAdminProducts = async (req, res) => {
     }
 };
 
+const viewAdminAllOrders = async (req, res) => {
+    try{
+        const orders = await Order.find({}).populate('user').populate({ 
+            path:'orderList.item',
+            model:Product        
+        });
+        
+        res.render('/admin/users/orders/all/history/',{ 
+            orders,
+            title: "Admin Order History" 
+        })
+        // res.send(orders);
+    }
+    catch(e){
+        console.log(e);
+        res.status(404).render('error/error',{"status":"404"})
+    
+    }
+}
+
 
 module.exports = {
     viewAdminProducts,
-
+    viewAdminAllOrders
 };

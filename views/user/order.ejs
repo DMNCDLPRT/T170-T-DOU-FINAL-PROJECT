@@ -10,8 +10,17 @@
             <% } else{ %> 
             <section class="order-list">
                 <% for(let item of orders.reverse()) { %>
-                    <div class="card  my-4">
-                        <div class="card-header "> <h5>Date Of purchase : <%=String(item.purchaseDate).slice(0,16)%> Order Id : <%=item.orderid%></h5></div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h5 class="mb-0 mt-2"><b>Date Of purchase: </b><%=String(item.purchaseDate).slice(0,16)%></h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5 class="float-right"><b>Order Id: </b> <%=item.orderid%></h5>
+                                </div>
+                            </div> 
+                        </div>
                         <div class="card-body row">
                             <ul class="list-group">
                                 <% let count=0;
@@ -48,7 +57,14 @@
                         
                         </div>
                         <div class="card-footer text-end">
-                            <h5>Payment Id : <%=item.paymentid%> &nbsp; Amount Paid :  &#x20B9; <%=item.finalPrice%></h5>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h5 class="mb-0 mt-2"><b>Payment Id : </b><%=item.paymentid%> &nbsp;</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5 class="float-right"><b>Amount Paid : </b> &#8369; <%=item.finalPrice%></h5>
+                                </div>
+                            </div> 
                         </div>
                     </div>
                     <hr>

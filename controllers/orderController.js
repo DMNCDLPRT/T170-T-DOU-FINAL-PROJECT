@@ -2,7 +2,7 @@ const { Customer }= require("../models/customer");
 const Razorpay = require("razorpay");
 const { v4: uuid } = require("uuid");
 const crypto = require("crypto");
-const Orders = require("../models/order");
+const { Orders } = require("../models/order");
 require('dotenv').config();
 
 const instance = new Razorpay({
@@ -63,7 +63,8 @@ const userOrderVerify = async (req, res) => {
                 await orderObj.save();
                 userObj.cart.splice(0,userObj.orders.length);
                 await userObj.save();
-                req.flash("success","Your Order was placed successfully");
+                // req.flash("success","Your Order was placed successfully");
+                console.log("Your Order was Placed successfully");
                 response = { status: "success", orderId: req.body.razorpay_order_id };
 
             } catch (e) {

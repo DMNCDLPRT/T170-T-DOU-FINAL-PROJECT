@@ -165,14 +165,14 @@
                 console.log(response);
                 console.log(response);
                 response.order = order;
-                fetch('/user/order/verify', { 
+                fetch('/user/order/verify/<%=user.id%>', { 
                     method: 'POST',
                     headers: {'Content-Type':'application/json' },
                     body: JSON.stringify(response)
                 }).then((res) => { return res.json() }).then((resData) => { 
                         if(resData.status == `success`)
-                        window.location.href = `/user/order`
-                    }).catch(()=>console.log("OOps Could not send Data"))
+                        window.location.href = `/user/order/history/<%=user.id%>`
+                }).catch(()=>console.log("OOps Could not send Data"))
             },
             "prefill": {
                 "name": "<%= user.username %>",
