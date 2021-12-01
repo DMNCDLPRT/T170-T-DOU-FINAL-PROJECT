@@ -185,7 +185,7 @@
                 "color": "#00BCD4"
             }
         };
-        var rzp1 = new razorpay(options);
+        var rzp1 = new Razorpay(options);
         rzp1.on('payment.failed', function (response){
                 fetch("/user/order/paymentfail",{
                     method: "POST",
