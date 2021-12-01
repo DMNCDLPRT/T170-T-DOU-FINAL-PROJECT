@@ -1,0 +1,57 @@
+<div class="component">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Welcome To T'Dou</h1>
+                <h4>Best online Shopping platform</h4>
+            </div>
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4 class="font-weight-bold">Sign-up</h4>
+                        </div>
+                    <div class="card-body">
+                        <form action="/signupCustomer" method="post" class="needs-validation">
+                            <div class="form-group">
+                                <label class="col-form-label" for="username">Username</label>
+                                <input type="text" class="form-control" name="username" placeholder="Username" id="username">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label" for="email">E-mail</label>
+                               <input type="email" class="form-control" name="email" placeholder="example@email.com" id="email">                                   
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label" for="email">Phone Number</label>
+                               <input type="number" class="form-control" name="phone" placeholder="Phone Number" id="phone">                                        
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label" for="pssword">Password</label>
+                                <input type="password" class="form-control" name="pssword" placeholder="Password" id="pssword">
+                            </div>
+                            <!-- <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" aria-label="role" name="role" value="Admin" id="btnradio1" autocomplete="off" checked="" selected required>
+                                <label class="btn btn-outline-primary" for="btnradio1">Admin</label>
+                                <input type="radio" class="btn-check" aria-label="role" name="role" value="Customer" id="btnradio2" autocomplete="off" checked="">
+                                <label class="btn btn-outline-primary" for="btnradio2">Customer</label>
+                            </div> -->
+
+                            <div class="form-group">
+                                <label for="role" class=col-form-label"><h6>User Role :</h6></label>
+                                <select class="form-control" aria-label="role" name="role">
+                                  <option selected value="Customer">Customer</option>
+                                  <option value="Admin">Admin</option>
+                                </select>
+                             
+                              </div>
+                            <div class="form-group text-center">
+                                <button itype="submt" class="btn btn-success">Sign-up</button>
+                                <a href="/" class="btn btn-light">Cancel</a><br>
+                                <a href="/loginCustomer">already have an account? log in</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

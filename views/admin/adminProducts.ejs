@@ -1,0 +1,42 @@
+<div class="component">
+    <div class="card-body">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4>Admin Products</h4>
+            </div>
+            <div class="card-body">
+                <div class="products-list">
+                    <ul class="list-group">
+                    <% for(item of data.reverse()){ %> 
+                        <li class="list-group-item">
+                            <div class="productList d-flex row">
+                                <div class="itemPhoto col-md-2  d-flex align-center">
+                                    <%if(item.image.data!=undefined){%>
+                                        <img src="data:image/<%=item.image.contentType%>;base64,<%=item.image.data.toString('base64')%>" class="img-fluid" width="100%"/>
+                                    <%}
+                                    else{%>
+                                        <img src="<%=item.img%>" alt="Item Image" class="itemImg" width="100%" >
+                                    <%}%>
+                                </div>
+                                <div class="itemProd col d-flex align-items-center">
+                                    <div class="prodInfo p-2">
+                                        <h5 class="name"><%=item.name%></h5>
+                                        <h6>Price : &#8369; <%=item.price%></h6>
+                                    </div>
+                                </div>
+                                <div class="itemProd d-flex align-items-center justify-content-evenly align-items-center col-md-4 ">
+                                    <a href="/view/products/<%=item._id%>" class="btn btn-primary mr-1"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a href="/admin/products/<%=item._id%>/edit" class="btn btn-warning mr-1"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                    <form action="/admin/products/delete/<%=item._id%>?_method=DELETE" method="POST">
+                                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    </form>
+                                 </div>
+                            </div>
+                        </li>
+                    <%}%>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
