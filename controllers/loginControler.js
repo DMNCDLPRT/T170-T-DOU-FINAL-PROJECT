@@ -17,7 +17,7 @@ const getloginCustomerView = (req, res, next) => {
 const maxAge = 3 * 24 * 60 * 60;
 
 const createToken = (id, email, role) => {
-	return jwt.sign({ id, email, role } , JWT_SECRET,  {
+	return jwt.sign({ id, email, role } , JWT_SECRET, {
 		expiresIn: maxAge
 	});
 }
@@ -47,7 +47,7 @@ const loginCustomer = async (req, res, next) => {
 	if (await bcrypt.compare(pssword, user.pssword)) {
 		const token = createToken(user._id, user.email, user.role);
 		
-		res.cookie('jwt', token, {httpOnly: true}, "Stack", { expiresIn: "10h"} );
+		res.cookie('jwt', token, {httpOnly: true}, "Stack", { expiresIn: "10h"});
 		return res.redirect('/');
 		/* return res.json({ status: 'ok', data: token }); */
 	} 
