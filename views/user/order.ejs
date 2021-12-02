@@ -1,10 +1,9 @@
 <div class="component">
     <h2 class="order-heading my-3">Your Orders</h2>
     <hr>
-    <% if(orders.length<1){ %>
+    <% if(orders.length < 1){ %>
         <h2 class="text-center">You Dont have Any orders Yet ! </h2>
-    <%}
-    else{%> 
+    <% } else { %> 
     <section class="order-list">
         <% for(let item of orders.reverse()){%>
             <div class="card  my-4">
@@ -16,7 +15,6 @@
                     <ul class="list-group">
                         <% let count=0;
                         for(let itemList of item.orderList) { count++  %>
-                           
                             <li class="list-group-item">
                                 <h6>Product no : <%=count%></h6>
                                 <%  if(itemList.item==null){%>
