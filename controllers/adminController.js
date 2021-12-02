@@ -20,7 +20,7 @@ const viewAdminAllOrders = async (req, res) => {
             model:Product        
         });
         
-        res.render('user/order',{ 
+        res.render('admin/orderHistory',{ 
             orders,
             title: "Admin Order History" 
         })
