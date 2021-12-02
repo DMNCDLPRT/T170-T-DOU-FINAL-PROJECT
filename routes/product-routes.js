@@ -14,7 +14,7 @@ router.post('/admin/products/new', requireAuth, isAdmin,  upload.single("image")
 router.get("/view/products/:id", viewViewProduct);                     // get Selected product view
 
 router.get("/products/:id/reviews", getViewProduct);                   // getViewProduct = /products/:id/:rev_id
-router.post("/products/:id/reviews/:user_id", requireAuth, productReviews);     // post review product
+router.post("/products/:id/user/:user_id/review", requireAuth, productReviews);     // post review product
 router.get("/products/:id/reviews/:rev_id", requireAuth, getViewProduct);
 router.patch("/products/:id/reviews/:rev_id", requireAuth,  patchReviwProduct);
 router.delete("/products/:id/reviews/:rev_id",requireAuth, deleteReviewProduct);
