@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const { Customer } = require("../models/customer")
 
 const orderSchema = mongoose.Schema({
     user: {
         type: mongoose.ObjectId,
-        ref: "Customer",
+        ref: "Custoemr",
     },
     orderid: {
         type: String,

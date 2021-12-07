@@ -110,11 +110,11 @@ const editProduct = async (req, res) => {
             await Product.findByIdAndUpdate(id, data);
   
             console.log("Database updated");
-            /* req.flash("status", "Item details were editted and sucessfully"); */
+            req.flash("status", "Item details were editted and sucessfully");
             console.log("Item details were eddited and sucessfully");
             res.redirect("/admin/adminProducts");
         } else{
-            /* req.flash('error',"You cannot set price more than 100000"); */
+            req.flash('error',"You cannot set price more than 100000");
             console.log("You cannot set price more than 100000");
             res.redirect(`/admin/products/${id}/edit`)
         }

@@ -17,8 +17,10 @@ const viewAdminAllOrders = async (req, res) => {
     try{
         const orders = await Orders.find({}).populate('user').populate({ 
             path:'orderList.item',
-            model:Product        
+            model: Product        
         });
+        
+        console.log(orders);
         
         res.render('admin/orderHistory',{ 
             orders,
