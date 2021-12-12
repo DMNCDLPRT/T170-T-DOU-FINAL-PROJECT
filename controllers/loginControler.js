@@ -17,7 +17,7 @@ const getloginCustomerView = (req, res, next) => {
 const maxAge = 3 * 24 * 60 * 60;
 
 const createToken = (id, email, role) => {
-	return jwt.sign({ id, email, role } , JWT_SECRET, {
+	return jwt.sign({ id, email, role } , JWT_SECRET,  {
 		expiresIn: maxAge
 	});
 }
@@ -26,33 +26,34 @@ const loginCustomer = async (req, res, next) => {
 	const { error } = login(req.body);
     if(error) return res.status(422).send(error.details[0].message);
 
-    const { userEmailPhone, pssword } = req.body;
+    const { uid, password } = req.body;
 	// const user = await Customer.findOne({ email }).lean();
 
+	console.log(uid, password);
 	const user = await Customer.findOne({
     $or: [{
-      "email": userEmailPhone
+      "email": uid
     }, {
-      "phone": userEmailPhone
+      "phone": uid
     }, {
-      "username": userEmailPhone
+      "username": uid
     }]
   	});
 
-	if (!user || !(await bcrypt.compare(pssword, user.pssword))) {
-		return res.json({ status: 'error', error: 'Wrong email/password' });
-		/* return handleErrors(error); */
-	} 
-	
-	if (await bcrypt.compare(pssword, user.pssword)) {
+	if (!user) {
+		return res.json({ status: 'error-email', error: 'No user found'});
+		/* return handleErrors(error); */ 
+	}
+	if(!(await bcrypt.compare(password, user.pssword))){
+		return res.json({ status: 'error-password', error: 'Passwords Dont Match'});
+	}
+	if (await bcrypt.compare(password, user.pssword)) {
 		const token = createToken(user._id, user.email, user.role);
 		
-		res.cookie('jwt', token, {httpOnly: true}, "Stack", { expiresIn: "10h"});
-		return res.redirect('/');
-		/* return res.json({ status: 'ok', data: token }); */
+		res.cookie('jwt', token, {httpOnly: true}, "Stack", { expiresIn: "10h"} );
+		return res.status(200).json({ user: user._id });
 	} 
 	return res.json({ status: 'error', error: 'Invalid password/email' }); 
-	
 }
 
 const frontpage = (req, res) => {

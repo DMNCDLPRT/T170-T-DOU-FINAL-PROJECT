@@ -10,29 +10,26 @@
                         <h4 class="font-weight-bold">Log In</h4>
                     </div>
                     <div class="card-body">
-                        <form action="/loginCustomer" method="post" class="needs-validation">
+                        <form action="/loginCustomer" method="POST" class="needs-validation">
                             <div class="text-center">
                                 <h4>Welcome To T'Dou</h1>
                                 <h5>Best online Shopping platform</h4>
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label" for="email">User ID</label>
-                                <input type="text" class="form-control" name="userEmailPhone" placeholder="Username, email or phone" id="userEmailPhone">
+                                <input type="text" class="form-control has-danger" name="userEmailPhone" placeholder="Username, email or phone" id="userEmailPhone">
+                                <div class="userEmailPhone error text-danger"></div>
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label" for="pssword">Password</label>
                                 <input type="password" class="form-control" name="pssword" placeholder="Password" id="pssword">
+                                <div class="password error text-danger"></div>
                                 <a href="/forgotPassword">Forgot Password?</a>
                             </div>
                             <div class="form-group text-center">
                                 <button itype="submt" class="btn btn-success">log in</button><br>
                                 <a href="/signupCustomer" class="display-center">Don't have an account? Sign-in</a>
                             </div>
-                            <!-- <div class="form-group text-center">
-                                <a href="/auth/google" >
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" alt="Google Img" height="50px" width="50px">
-                                </a>
-                            </div> -->
                         </form>
                     </div>
                 </div>
@@ -40,3 +37,40 @@
         </div>
     </div>
 </div>
+<script>
+    const form = document.querySelector('form');
+    const validate = document.querySelectorAll('.needs-validation');
+    const emailError = document.querySelector('.userEmailPhone.error');
+    const passwordError = document.querySelector('.password.error');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        // reset errors
+        emailError.textContent = '';
+        passwordError.textContent = '';
+        // get values
+        const uid = form.userEmailPhone.value;
+        const password = form.pssword.value;
+        try {
+            const res = await fetch('/loginCustomer', { 
+                method: 'POST', 
+                body: JSON.stringify({ uid, password }),
+                headers: {'Content-Type': 'application/json'}
+            });
+            const data = await res.json();
+            console.log(data.status);
+
+            if (data.status === 'error-email') {
+                emailError.textContent = data.error;
+            }
+            if (data.status === 'error-password') {
+                passwordError.textContent = data.error;
+            }
+            if (data.user) {
+                form.classList.add('was-validated');
+                location.assign('/');
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    });
+</script>

@@ -170,37 +170,37 @@ const deleteProduct = async (req, res) => {
 }
 
 const productReviews = async (req, res) => {
-/*     try { */
-        // console.log("\n\n\n\n\n\nThis is the reviews request \n\n\n\n\n")
-        // console.log(req)
-        const { user_id } = req.params;
-        const data = req.body;
-        console.log(data);
+
+    const { user_id } = req.params;
+    const data = req.body;
+    console.log(data);
+
+    try {
+        if (data.rating == '0'){
+            return res.json({ status: 'error-rating', error: 'rating is required' }); 
+        }
+        if (data.comment == ''){
+            return res.json({ status: 'error-comment', error: 'comment is required' }); 
+        }
 
         let username = await Customer.findById(user_id);
         data.user = username.username;
         console.log(data.user);
-
         data.date = Date.now();
-
         const { id } = req.params;
-        //Finding the Product Object
-        const productObj = await Product.findById(id);
-        //Creating an object of the Reviews Model having the data value as productId, to which changes will be made
-        const reviewObj = new Reviews(data);
-        //Automaticaly Pushes Only the Object id inside the Array [as mentioned in the schema]
-        productObj.reviews.push(reviewObj);
-        //Product is updated and then saved in Data base;
-        await productObj.save();
-        //reviewObj is a object that is then saved in data base;
-        await reviewObj.save();
+        
+        const productObj = await Product.findById(id);  //Finding the Product Object
+        const reviewObj = new Reviews(data);            //Creating an object of the Reviews Model having the data value as productId, to which changes will be made
+        productObj.reviews.push(reviewObj);             //Automaticaly Pushes Only the Object id inside the Array [as mentioned in the schema]
+        await productObj.save();                        //Product is updated and then saved in Data base;
+        await reviewObj.save();                         //Product is updated and then saved in Data base;
 
         console.log("Comment Saved in Database");
-        /* req.flash("success","Your review was added successfully !") */
-        res.redirect(`/view/products/${id}`);
-/*       } catch (e) {
-        res.status(404).render("error/error", { status: "404" });
-      } */
+        return res.status(200).json({ user: data.user });
+
+    } catch {
+        res.json({ status: 'error', error: 'Something went wrong' }); 
+    }
 }
 
 //Creating a middlewasre that authenticates review changes of operations

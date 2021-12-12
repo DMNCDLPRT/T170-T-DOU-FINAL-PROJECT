@@ -49,29 +49,31 @@
 
     <div class="col-md-5">
         <h2>Create a Review</h2>
-        <form action="/products/<%=data._id%>/user/review/<%=user.id%>" class="rating-system" method="POST">
+        <form action="/products/<%=data._id%>/user/review/<%=user.id%>" class="rating-system" method="POST" needs-validation id="form1">
             <div class="rating-num mb-2">
                 <label class="form-label" for="customRange2">Give Your Rating</label>
                 <div class="range">
                     <fieldset class="starability-grow">
                     
-                    <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
-                    <input type="radio" id="first-rate1" name="rating" value="1" />
+                    <input type="radio" id="no-rate" class="input-no-rate" name="rate" value="0" checked aria-label="No rating." />
+                    <input type="radio" id="first-rate1" name="rate" value="1" required/>
                     <label for="first-rate1" title="Terrible">1 star</label>
-                    <input type="radio" id="first-rate2" name="rating" value="2" />
+                    <input type="radio" id="first-rate2" name="rate" value="2" />
                     <label for="first-rate2" title="Not good">2 stars</label>
-                    <input type="radio" id="first-rate3" name="rating" value="3" />
+                    <input type="radio" id="first-rate3" name="rate" value="3" />
                     <label for="first-rate3" title="Average">3 stars</label>
-                    <input type="radio" id="first-rate4" name="rating" value="4" />
+                    <input type="radio" id="first-rate4" name="rate" value="4" />
                     <label for="first-rate4" title="Very good">4 stars</label>
-                    <input type="radio" id="first-rate5" name="rating" value="5" />
+                    <input type="radio" id="first-rate5" name="rate" value="5" />
                     <label for="first-rate5" title="Amazing">5 stars</label>
+                    <div class="rating error text-danger"></div>
                     </fieldset>
                 </div>
             </div>
             <div class="review-item form-outline mb-3">
-                <textarea class="form-control" id="textAreaExample" name="comment" rows="4"></textarea>
-                <label class="form-label" for="textAreaExample">Write a Product Review</label>
+                <textarea class="form-control" id="textAreaExample" name="feedback" rows="4"></textarea>
+                <label class="form-label" for="textAreaExample" required>Write a Product Review</label>
+                <div class="comment error text-danger"></div>
             </div>
             <div class="submit-button"><button type="submit" class="btn btn-primary mb-4">Save</button></div>
         </form>
@@ -127,3 +129,42 @@
         </div>
     </div>
 </div>
+<script>
+    const form = document.getElementById('form1');
+    const ratingError = document.querySelector('.rating.error');
+    const commentError = document.querySelector('.comment.error');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        // reset errors
+        ratingError.textContent = '';
+        commentError.textContent = '';
+        // get values
+        const rating = form.rate.value;
+        const comment = form.feedback.value;     
+
+        console.log("rating " + rating + ", comment " + comment);
+
+        try {
+            const res = await fetch('/products/<%=data._id%>/user/review/<%=user.id%>', {
+                method: 'POST', 
+                body: JSON.stringify({ rating, comment }),
+                headers: {'Content-Type': 'application/json'}
+            });
+            const data = await res.json();
+            console.log(data.status);
+
+            if (data.status === 'error-rating') {
+                ratingError.textContent = data.error;
+            }
+            if (data.status === 'error-comment') {
+                commentError.textContent = data.error;
+            }
+            if (data.user){
+                form.classList.add('was-validated');
+                location.reload();
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    });
+</script>

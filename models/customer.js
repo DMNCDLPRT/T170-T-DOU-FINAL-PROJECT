@@ -48,9 +48,6 @@ const customerSchema = new mongoose.Schema({
 
     }
 });
-    
-customerSchema.plugin(findOrCreate);
-const Customer = mongoose.model('Customer', customerSchema);
 
 const validateCustomer = (customer) => {
     const schema = {
@@ -58,7 +55,7 @@ const validateCustomer = (customer) => {
         email:              Joi.string().email().required(),
         phone:              Joi.string().max(11).max(11).required(),
         pssword:            Joi.string().min(8).max(50).required(),
-        role:               Joi.string()
+        role:               Joi.string().required()
     }
 
     return Joi.validate(customer, schema);
@@ -75,6 +72,9 @@ const validateLogin = (customer) => {
 
     return Joi.login = (customer, schema);
 }
+
+customerSchema.plugin(findOrCreate);
+const Customer = mongoose.model('Customer', customerSchema);
 
 module.exports.Customer = Customer;
 module.exports.validate = validateCustomer;
