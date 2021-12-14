@@ -124,35 +124,6 @@ const editProduct = async (req, res) => {
     }
 };
 
-/* const editProduct = async (req, res) => {
-
-    const id = req.params.id;
-    const data = req.body;
-
-    if (req.file != undefined) {
-        try {
-            const file = path.join(__dirname + "/uploads/product/" + req.file.filename);
-            data.image = { data: fs.readFileSync(path.join(file)), contentType: "image/png", };
-
-            let product = await Product.findByIdAndUpdate(id, {
-                name: data.name,
-                img: data.img,
-                image: data.image,
-                price: data.price,
-                desc: data.desc,
-                type: data.type,
-            }, { new: true });
-            if(!product) return res.status(404).send('Product with the given id not found');
-        } catch{
-
-        }
-    }
-  
-    req.flash("status", "Item details were editted and sucessfully");
-    console.log("Database updated");
-    res.redirect("/admin/adminProducts");
-}; */
-
 const deleteProduct = async (req, res) => {
     try {
         const { id } = req.params;
@@ -199,7 +170,7 @@ const productReviews = async (req, res) => {
         return res.status(200).json({ user: data.user });
 
     } catch {
-        res.json({ status: 'error', error: 'Something went wrong' }); 
+        return res.status(404).json({ error: 'Something went wrong' }); 
     }
 }
 

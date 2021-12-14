@@ -8,14 +8,17 @@ const { schema } = require('joi/lib/types/object');
 const customerSchema = new mongoose.Schema({
     username: {
         type: String,
+        unique: true,
         required: true
     },
     email: {
         type: String,
+        unique: true,
         required: true
     },
     phone: {
         type: String,
+        unique: true,
         required: true
     },
     pssword: {
@@ -51,9 +54,9 @@ const customerSchema = new mongoose.Schema({
 
 const validateCustomer = (customer) => {
     const schema = {
-        username:           Joi.string().max(50).required(),
+        username:           Joi.string().max(50).min(3).required(),
         email:              Joi.string().email().required(),
-        phone:              Joi.string().max(11).max(11).required(),
+        phone:              Joi.string().min(11).max(11).required(),
         pssword:            Joi.string().min(8).max(50).required(),
         role:               Joi.string().required()
     }

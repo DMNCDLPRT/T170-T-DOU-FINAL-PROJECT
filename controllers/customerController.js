@@ -1,4 +1,4 @@
-const { Customer, validate } = require('../models/customer');
+ const { Customer, validate } = require('../models/customer');
 const bcrypt = require('bcryptjs');
 
 
@@ -18,23 +18,44 @@ const getAddCustomerView = (req, res, next) => {
     res.render('admin/addCustomer', {title: "Admin | Add Customer"});
 }
 
-const addCustomer = async (req, res, next) => {
+const addCustomer = async (req, res) => {
     const { error } = validate(req.body);
-    if(error) return res.status(422).send(error.details[0].message);
+    if(error){
+        const messageError = error.details[0].message;
+        return res.status(422).json({ error: messageError});
+    }
     
     const data = req.body;
+    console.log(data);
     const { pssword: plainPassword } = req.body;
-    const password = await bcrypt.hash(plainPassword, 10);
 
-    let customer = await new Customer({
-        username: data.username,
-        email: data.email,
-        phone: data.phone,
-        pssword: password,
-        role: data.role
-    });
-    customer = await customer.save();
-    res.redirect('/');
+    try {
+
+        if(await Customer.findOne({ username: data.username })){
+            return res.status(422).json({ error: 'error-username', message: 'Username already exist' });
+        }
+        if(await Customer.findOne({ email: data.email })){
+            return res.status(422).json({ error: 'error-email', message: 'Email already in use' });
+        }
+        if(await Customer.findOne({ phone: data.phone })){
+            return res.status(422).json({ error: 'error-contact', message: 'Contact already in use' })
+        }
+        
+        const password = await bcrypt.hash(plainPassword, 10);
+        let customer = await new Customer({
+            username: data.username,
+            email: data.email,
+            phone: data.phone,
+            pssword: password,
+            role: data.role
+        });
+        customer = await customer.save();
+
+        res.status(200).json({ message: 'Account created successfully' })
+        return res.redirect('/loginCustomer');
+    } catch (error) {
+        res.status(400).json({ error: 'something went wrong' });
+    }
 }
 
 const getUpdateCustomerView = async (req, res, next) => {

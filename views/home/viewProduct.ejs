@@ -1,3 +1,9 @@
+    <% if(data.error) %>
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <div class="rating error text-danger"></div> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+    </div>
+
 <h3><%= data.name %></h3>
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -132,12 +138,14 @@
 <script>
     const form = document.getElementById('form1');
     const ratingError = document.querySelector('.rating.error');
+    const alertAlert = document.querySelector('.alert.alert-danger');
     const commentError = document.querySelector('.comment.error');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         // reset errors
         ratingError.textContent = '';
         commentError.textContent = '';
+        alertAlert.textContent = ';'
         // get values
         const rating = form.rate.value;
         const comment = form.feedback.value;     
@@ -153,6 +161,9 @@
             const data = await res.json();
             console.log(data.status);
 
+            if (data.status == '404') {
+                alertAlert.textContent = data.error;
+            }
             if (data.status === 'error-rating') {
                 ratingError.textContent = data.error;
             }

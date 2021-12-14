@@ -24,7 +24,7 @@ const createToken = (id, email, role) => {
 
 const loginCustomer = async (req, res, next) => {
 	const { error } = login(req.body);
-    if(error) return res.status(422).send(error.details[0].message);
+    if(error) return res.json({ status: 'error-email', error: details[0].message});
 
     const { uid, password } = req.body;
 	// const user = await Customer.findOne({ email }).lean();
