@@ -102,3 +102,44 @@
 {"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T11:10:19.612Z"}
 {"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T11:11:35.569Z"}
 {"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T11:11:35.625Z"}
+{"message":"Failed to lookup view \"error/error\" in views directory \"C:\\Users\\user\\OneDrive\\Documents\\GitHub\\T170-T'DOU-FINAL-PROJECT\\views\"","stack":"Error: Failed to lookup view \"error/error\" in views directory \"C:\\Users\\user\\OneDrive\\Documents\\GitHub\\T170-T'DOU-FINAL-PROJECT\\views\"\n    at Function.render (C:\\Users\\user\\OneDrive\\Documents\\GitHub\\T170-T'DOU-FINAL-PROJECT\\node_modules\\express\\lib\\application.js:580:17)\n    at ServerResponse.render (C:\\Users\\user\\OneDrive\\Documents\\GitHub\\T170-T'DOU-FINAL-PROJECT\\node_modules\\express\\lib\\response.js:1012:7)\n    at ServerResponse.res.render (C:\\Users\\user\\OneDrive\\Documents\\GitHub\\T170-T'DOU-FINAL-PROJECT\\node_modules\\express-ejs-layouts\\lib\\express-layouts.js:77:18)\n    at product (C:\\Users\\user\\OneDrive\\Documents\\GitHub\\T170-T'DOU-FINAL-PROJECT\\controllers\\product.js:70:25)\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)","view":{"defaultEngine":"ejs","ext":".ejs","name":"error/error","root":"C:\\Users\\user\\OneDrive\\Documents\\GitHub\\T170-T'DOU-FINAL-PROJECT\\views"},"level":"error","timestamp":"2021-12-14T11:17:51.854Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T11:28:29.221Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T11:28:29.274Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T11:29:18.385Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T11:29:18.453Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T11:30:12.149Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T11:30:12.204Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T11:41:39.298Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T11:41:39.345Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T11:44:10.724Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T11:44:10.764Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T11:54:14.545Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T11:54:14.586Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T12:19:22.897Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T12:19:22.936Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T12:24:01.855Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T12:24:01.903Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T12:30:38.713Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T12:30:38.751Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T12:34:33.968Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T12:34:34.010Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T12:36:45.052Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T12:36:45.088Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T12:39:07.592Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T12:39:07.645Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T12:39:56.857Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T12:39:56.903Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T12:43:06.119Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T12:43:06.151Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T12:44:48.444Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T12:44:48.493Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T12:45:58.413Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T12:45:58.467Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T12:51:28.205Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T12:51:28.265Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T12:51:52.549Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T12:51:52.603Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T12:52:14.096Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T12:52:14.207Z"}
+{"level":"info","message":"App is listening on url http://localhost:6969","timestamp":"2021-12-14T13:03:13.315Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2021-12-14T13:03:13.357Z"}

@@ -1,70 +1,114 @@
 <div class="component">
     <div class="card-body">
-        <div class="card">
-            <div class="card-header text-center">
-                <h4 class="font-weight-bold">Add new Product item</h4>
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-md-4 text-center">
+                <div class="text-center">
+                    <h2 class="font-weight-bold">Welcome To T'Dou</h2>
+                    <h4>Best online Shopping platform</h4>
+                </div>
+                <img src="/images/home-image.png" alt="shopping cart" class="img-fluid">
             </div>
-            <div class="card-body">
-                <form action="/admin/products/new" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
-                    <!-- Product name -->
-                    <div class="form-group">
-                        <label class="col-form-label" for="username">Product Name</label>
-                        <input type="text" name="name" id="name" required class="form-control">
-                        <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Not a suitable name</div>
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4 class="font-weight-bold">Add new Product item</h4>
                     </div>
+                    <div class="card-body">
+                        <form action="/admin/products/new" method="POST" class="needs-validation" novalidate enctype="multipart/form-data" id="addproduct">
+                            <!-- Product name -->
+                            <div class="form-group">
+                                <label class="col-form-label" for="username">Product Name</label>
+                                <input type="text" name="name" id="name" required class="form-control">
+                                <div class="valid-feedback">Looks good!</div>
+                                <div class="invalid-feedback">Not a suitable name</div>
+                            </div>
 
-                    <!-- product price -->
-                    <div class="form-group">
-                        <label class="form-label" for="price">Price</label>
-                        <input type="text" id="price" class="form-control" name="price" required/>
-                        <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Not a valid price!</div>
-                    </div>
+                            <!-- product price -->
+                            <div class="form-group">
+                                <label class="form-label" for="price">Price</label>
+                                <input type="text" id="price" class="form-control" name="price" required/>
+                                <div class="valid-feedback">Looks good!</div>
+                                <div class="invalid-feedback">Not a valid price!</div>
+                            </div>
 
-                    <!-- default file chooser  -->
-                    <h6 class="my-3 text-center">You can give either a image file or a image link</h6>
-                    <div class="form-group">
-                        <input type="file" class="form-control" name="image" id="customFile" />
-                        <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Not a valid image file!</div>                                        
+                            <!-- default file chooser  -->
+                            <h6 class="my-3 text-center">
+                                You can give either a image file or a image link
+                                <br>
+                                Choose which type of file
+                            </h6>
+
+
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="btnradio" id="fileButton" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="fileButton">Radio 1</label>
+                                <input type="radio" class="btn-check" name="btnradio" id="linkButton" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="linkButton">Radio 2</label>
+                            </div>
+
+                            <div class="form-group" id="imageFile">
+                                <label class="form-label" for="image">Choose local file</label>
+                                <input type="file" class="form-control" name="image"/>
+                                <div class="valid-feedback">Looks good!</div>
+                                <div class="invalid-feedback">Not a valid image file!</div>                                        
+                            </div>
+                            <!-- image file link.. online -->
+                            <div class="form-group invisible" id="imageLink">
+                                <label class="form-label" for="img">Product Image Link</label>
+                                <input type="text" id="img" class="form-control" name="img"/>
+                                <div class="valid-feedback">Looks good!</div>
+                                <div class="invalid-feedback">Not a valid image link</div>
+                            </div>
+                            <!-- bootswatch file chooser -->
+                            <!-- <div class="form-group">
+                                <label for="formFile" class="form-label mt-4">Default file input example</label>
+                                <input class="form-control" type="file" id="formFile">
+                            </div> -->
+                            <div class="form-group">
+                                <textarea class="form-control" id="desc" rows="4" name="desc" required></textarea>
+                                <label class="form-label" for="desc">Product Description</label>
+                                <div class="valid-feedback">Looks good!</div>
+                                <div class="invalid-feedback">Not a proper description</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="role" class="form-label"><h6>Type of Product</h6></label>
+                                    <select class="form-control" aria-label="role" name="type">
+                                        <option selected value="Technology">Technology</option>
+                                        <option value="Food">Food</option>
+                                        <option value="Personal and Heath Care">Personal and Heath Care</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                            </div>
+                            <div class="form-group text-center">
+                                <button itype="submt" class="btn btn-success">Submit</button>
+                                <a href="/admin" class="btn btn-light">Cancel</a>
+                            </div>
+                        </form>
                     </div>
-                    <!-- image file link.. online -->
-                    <div class="form-group">
-                        <label class="form-label" for="img">Product Image Link</label>
-                        <input type="text" id="img" class="form-control" name="img"/>
-                        <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Not a valid image link</div>
-                    </div>
-                    <!-- bootswatch file chooser -->
-                    <!-- <div class="form-group">
-                        <label for="formFile" class="form-label mt-4">Default file input example</label>
-                        <input class="form-control" type="file" id="formFile">
-                    </div> -->
-                    <div class="form-group">
-                        <textarea class="form-control" id="desc" rows="4" name="desc" required></textarea>
-                        <label class="form-label" for="desc">Product Description</label>
-                        <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Not a proper description</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="role" class="form-label"><h6>Type of Product</h6></label>
-                            <select class="form-control" aria-label="role" name="type">
-                                <option selected value="Technology">Technology</option>
-                                <option value="Food">Food</option>
-                                <option value="Personal and Heath Care">Personal and Heath Care</option>
-                                <option value="Other">Other</option>
-                            </select>
-                    </div>
-                    <div class="form-group text-center">
-                        <button itype="submt" class="btn btn-success">Submit</button>
-                        <a href="/admin" class="btn btn-light">Cancel</a>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const imageFile = document.querySelector("#imageFile");
+        const imageLink = document.querySelector("#imageLink");
 
+        document.querySelector("#fileButton").addEventListener("click", e => {
+            e.preventDefault();
+            imageFile.classList.remove("invisible");
+            imageLink.classList.add("invisible");
 
+        });
+
+        document.querySelector("#linkButton").addEventListener("click", e => {
+            e.preventDefault();
+            imageLink.classList.remove("invisible");
+            imageFile.classList.add("invisible");
+
+        });
+
+    });
+</script>
