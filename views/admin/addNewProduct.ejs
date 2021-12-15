@@ -18,7 +18,7 @@
                             <!-- Product name -->
                             <div class="form-group">
                                 <label class="col-form-label" for="username">Product Name</label>
-                                <input type="text" name="name" id="name" required class="form-control">
+                                <input type="text" name="name" id="name" placeholder="Enter a product name" required class="form-control">
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Not a suitable name</div>
                             </div>
@@ -26,7 +26,7 @@
                             <!-- product price -->
                             <div class="form-group">
                                 <label class="form-label" for="price">Price</label>
-                                <input type="text" id="price" class="form-control" name="price" required/>
+                                <input type="text" id="price" class="form-control" placeholder="Enter product price" name="price" required/>
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Not a valid price!</div>
                             </div>
@@ -38,13 +38,16 @@
                                 Choose which type of file
                             </h6>
 
-
-                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check" name="btnradio" id="fileButton" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="fileButton">Radio 1</label>
-                                <input type="radio" class="btn-check" name="btnradio" id="linkButton" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="linkButton">Radio 2</label>
-                            </div>
+                            <fieldset>
+                                <div class="form-check form-switch">
+                                  <input class="file form-check-input" type="checkbox" id="fileButton">
+                                  <label class="form-check-label" for="fileButton">local file</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                  <input class="link form-check-input" type="checkbox" id="linkButton">
+                                  <label class="form-check-label" for="linkButton">image link</label>
+                                </div>
+                              </fieldset>
 
                             <div class="form-group" id="imageFile">
                                 <label class="form-label" for="image">Choose local file</label>
@@ -55,7 +58,7 @@
                             <!-- image file link.. online -->
                             <div class="form-group invisible" id="imageLink">
                                 <label class="form-label" for="img">Product Image Link</label>
-                                <input type="text" id="img" class="form-control" name="img"/>
+                                <input type="text" id="img" placeholder="Product link" class="form-control" name="img"/>
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Not a valid image link</div>
                             </div>
@@ -66,7 +69,7 @@
                             </div> -->
                             <div class="form-group">
                                 <textarea class="form-control" id="desc" rows="4" name="desc" required></textarea>
-                                <label class="form-label" for="desc">Product Description</label>
+                                <label class="form-label" placeholder="Enter product Description" for="desc">Product Description</label>
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Not a proper description</div>
                             </div>
@@ -100,6 +103,7 @@
             e.preventDefault();
             imageFile.classList.remove("invisible");
             imageLink.classList.add("invisible");
+            removed("checked");
 
         });
 
@@ -107,6 +111,7 @@
             e.preventDefault();
             imageLink.classList.remove("invisible");
             imageFile.classList.add("invisible");
+            add("ckecked");
 
         });
 
