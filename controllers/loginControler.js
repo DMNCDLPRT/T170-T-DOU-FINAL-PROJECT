@@ -2,13 +2,7 @@
 const{ Customer, login } = require('../models/customer');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
-const JWT_SECRET = 'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk';
-
-// error handler
-/* const handleErrors = (err) => {
-	console.log(err.message, err);
-} */
+require('dotenv').config();
 
 const getloginCustomerView = (req, res, next) => {
     res.render('auth/loginCustomer', {title: "T'Dou | Login"});
@@ -17,14 +11,14 @@ const getloginCustomerView = (req, res, next) => {
 const maxAge = 3 * 24 * 60 * 60;
 
 const createToken = (id, email, role) => {
-	return jwt.sign({ id, email, role } , JWT_SECRET,  {
+	return jwt.sign({ id, email, role } , process.env.JWT_SECRET,  {
 		expiresIn: maxAge
 	});
 }
 
 const loginCustomer = async (req, res, next) => {
 	const { error } = login(req.body);
-    if(error) return res.json({ status: 'error-email', error: details[0].message});
+    if(error) return res.json({ status: 'error', error: details[0].message});
 
     const { uid, password } = req.body;
 	// const user = await Customer.findOne({ email }).lean();
@@ -42,7 +36,6 @@ const loginCustomer = async (req, res, next) => {
 
 	if (!user) {
 		return res.json({ status: 'error-email', error: 'No user found'});
-		/* return handleErrors(error); */ 
 	}
 	if(!(await bcrypt.compare(password, user.pssword))){
 		return res.json({ status: 'error-password', error: 'Passwords Dont Match'});

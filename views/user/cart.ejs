@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <% if(data.length < 1){ %>
-                    <h3 class="text-center">Hey <%=user.username%> Your Cart is Empty ! Shop Now!</h3>
+                    <h3 class="text-center p-3">Hey <%=user.username%> Your Cart is Empty ! Shop Now!</h3>
                 <% }else { %>
                 <div class="card-body">
                     <div class="cartinfo row">
@@ -230,12 +230,4 @@
             }
         })
     });
-    //     .catch((e)=>{
-    //             document.getElementById('alert-target').innerHTML=`<div class="alert alert-danger" id="fail-alert" role="alert">
-    //     There was a problem with payment! Please Try again!
-    //   </div>`
-    //   const myAlert = document.getElementById('fail-alert');
-    //   const bsAlert = new bootstrap.Alert(myAlert);
-    //   setTimeout(()=>{bsAlert.close()},3000);
-    //     })
 </script>

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Reviews } = require("./reviews");
 const Joi = require('joi');
+const { schema } = require('joi/lib/types/object');
 
 const productSchema = new mongoose.Schema({
     name: {
@@ -34,12 +35,9 @@ const productSchema = new mongoose.Schema({
     ]
         
 })
-
-const Product = new mongoose.model('products', productSchema);
-
-const validateProduct = (product) => {
+const validateProduct = (products) => {
     const schema = {
-        name:               Joi.string().required().max(50).min(4),
+        name:               Joi.string().required().min(2).max(30),
         preferred_method:   Joi.string().required().valid('Img', 'Image'),
         img:                Joi.string().when('preferred_method', { is: 'Img', then: Joi.required() }),
         image:              Joi.string().when('preferred_method', { is: 'Image', then: Joi.required() }),
@@ -47,8 +45,10 @@ const validateProduct = (product) => {
         desc:               Joi.string().required(),
         type:               Joi.string().required(),
     }
-    return Joi.validate(product, schema);
+    return Joi.validateProd = (products, schema);
 }
 
+const Product = new mongoose.model('products', productSchema);
+
 module.exports = Product;
-module.exports.validate = validateProduct;
+module.exports.validateProd = validateProduct;

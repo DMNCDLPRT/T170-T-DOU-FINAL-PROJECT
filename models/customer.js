@@ -6,6 +6,11 @@ const findOrCreate = require('mongoose-findorcreate');
 const { schema } = require('joi/lib/types/object');
 
 const customerSchema = new mongoose.Schema({
+    fullname: {
+        type: String,
+        unique: true,
+        required: true
+    },
     username: {
         type: String,
         unique: true,
@@ -54,6 +59,7 @@ const customerSchema = new mongoose.Schema({
 
 const validateCustomer = (customer) => {
     const schema = {
+        fullname:           Joi.string().max(50).min(3).required(),
         username:           Joi.string().max(50).min(3).required(),
         email:              Joi.string().email().required(),
         phone:              Joi.string().min(11).max(11).required(),

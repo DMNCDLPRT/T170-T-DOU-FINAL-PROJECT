@@ -1,5 +1,13 @@
-<div class="component">
-    <div class="card-body">
+<div class="component row">
+    <div class="list-group col-md-2">
+        <a href="#" class="list-group-item active">Dashboard</a>
+        <a href="/" class="list-group-item">Home</a>
+        <a href="/admin" class="list-group-item">Customers</a>
+        <a href="/admin/adminProducts" class="list-group-item">Products</a>
+        <a href="/admin/products/new" class="list-group-item">Add New Product</a>
+        <a href="/admin/users/orders/all/history" class="list-group-item">Order History</a>
+    </div>
+    <div class="card col-md p-0">
         <div class="card">
             <div class="card-header text-center">
                 <h4>Admin Products</h4>
@@ -24,7 +32,7 @@
                                         <h6>Price : &#8369; <%=item.price%></h6>
                                     </div>
                                 </div>
-                                <div class="itemProd d-flex align-items-center justify-content-evenly align-items-center col-md-4 ">
+                                <div class="itemProd d-flex align-items-center justify-content-evenly col-md-2 ">
                                     <a href="/view/products/<%=item._id%>" class="btn btn-primary mr-1"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <a href="/admin/products/<%=item._id%>/edit" class="btn btn-warning mr-1"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                     <form action="/admin/products/delete/<%=item._id%>?_method=DELETE" method="POST">

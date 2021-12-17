@@ -1,0 +1,113 @@
+<div class="card">
+    <div class="card-header">
+        <h4 class="font-weight-bold mb-0">Your Pofile</h4>
+    </div>
+    <div class="card-body">
+        <h3 class="mb-0"><%= customer.fullname%></h3>
+        <i><%= customer.email%></i>
+        <form action="/admin/updateCustomer/<%= customer._id %>" method="post" class="needs-validation">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label class="col-form-label" for="fullname">Name</label>
+                        <input type="text" class="form-control" value="<%= customer.fullname %>" name="fullName" placeholder="enter your username" id="fullname">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label class="col-form-label" for="username">Username</label>
+                        <input type="text" class="form-control" value="<%= customer.username %>" name="uid" placeholder="enter your username" id="username">
+                        <div class="username error text-danger"></div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label class="col-form-label" for="email">E-mail</label>
+                        <input type="email" class="form-control" value="<%= customer.email %>" name="Email" placeholder="example@email.com" id="email">
+                        <div class="email error text-danger"></div>   
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label class="col-form-label" for="email">Phone number</label>
+                        <input type="number" class="form-control" value="<%= customer.phone %>" name="contact" placeholder="Phone number" id="phone">
+                        <div class="phone error text-danger"></div> 
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label class="col-form-label" for="lastname">Change Password</label>
+                        <input type="password" class="form-control" value="<%= customer.lastname %>" name="pass" placeholder="Password" id="pssword"><div class="password error text-danger"></div>
+                        <div class="password error text-danger"></div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="col-form-label" for="role">Role</label>
+                    <div class="form-group">
+                        <div class="btn-group" role="Role" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check" aria-label="role" name="Role" value="Admin" id="btnradio1" autocomplete="off" checked="" selected required>
+                            <label class="btn btn-outline-primary" for="btnradio1">Admin</label>
+                            <input type="radio" class="btn-check" aria-label="role" name="Role" value="Customer" id="btnradio2" autocomplete="off" checked="">
+                            <label class="btn btn-outline-primary" for="btnradio2">Customer</label>
+                        </div>
+                        <div class="role error text-danger"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="validate error text-danger ml-5"></div>
+            <div class="col-4 mt-4">
+                <button type="submit" class="btn btn-success">Update</button>
+                <a href="/user/profile/<%=user.id%>" class="btn btn-light">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    /* const alertAlert = document.getElementsByClassName('.alert.alert'); */
+    const form = document.querySelector('form');
+    const validate = document.querySelectorAll('.needs-validation');
+    const validateError = document.querySelector('.validate.error');
+    const usernameError = document.querySelector('.username.error');
+    const emailError = document.querySelector('.email.error');
+    const phoneError = document.querySelector('.phone.error');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        // reset errors
+        validateError.textContent = '';
+        usernameError.textContent = '';
+        emailError.textContent = '';
+        phoneError.textContent = '';
+        // get values
+        const fullname = form.fullName.value;
+        const username = form.uid.value;
+        const email = form.Email.value;
+        const phone = form.contact.value;
+        const pssword = form.pass.value;
+        const role = form.Role.value;
+        try {
+            const res = await fetch('/user/profile/<%=user.id%>', { 
+                method: 'POST', 
+                body: JSON.stringify({ fullname, username, email, phone, pssword, role }),
+                headers: {'Content-Type': 'application/json'}
+            });
+            const data = await res.json();
+            console.log(data.error);
+
+            if (data.error ){ validateError.textContent = data.error }
+            if (data.error === 'error-username') {  usernameError.textContent = data.message; }
+            if (data.error === 'error-email') { emailError.textContent = data.message; }
+            if (data.error === 'error-contact') { phoneError.textContent = data.message; }
+
+            if (data.user) {
+                form.classList.add('was-validated');
+                location.assign('/');
+            }
+        } catch (err) {
+            console.log(err);
+            /* alertAlert.textContent = data.message; */
+
+        }
+    });
+</script>

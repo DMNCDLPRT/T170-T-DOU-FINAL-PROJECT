@@ -25,6 +25,7 @@
     "express-async-errors": "^3.1.1",
     "express-ejs-layouts": "^2.5.0",
     "fs-extra": "^10.0.0",
+    "google-auth-library": "^7.10.4",
     "joi": "^13.1.0",
     "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.5.1",

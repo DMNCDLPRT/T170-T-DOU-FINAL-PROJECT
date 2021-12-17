@@ -1,69 +1,79 @@
-<div class="component">
-    <h2 class="order-heading my-3 text-center">Admin Orders Page</h2>
-    <hr>
-    <div class="backButton-container d-flex justify-content-center my-2">            
-        <a href="/admin" class="admin-home btn btn-primary btn-lg" id="adminHomeButton"><i class="fa fa-arrow-left"></i> &nbsp;Back</a>
+<div class="component row">
+    <div class="list-group col-md-2">
+        <a href="#" class="list-group-item active">Dashboard</a>
+        <a href="/" class="list-group-item">Home</a>
+        <a href="/admin" class="list-group-item">Customers</a>
+        <a href="/admin/adminProducts" class="list-group-item">Products</a>
+        <a href="/admin/products/new" class="list-group-item">Add New Product</a>
+        <a href="/admin/users/orders/all/history" class="list-group-item">Order History</a>
     </div>
+    <div class="card col-md p-0">
+        <h2 class="order-heading my-3 text-center">Admin Orders Page</h2>
+        <hr>
+        <div class="backButton-container d-flex justify-content-center my-2">            
+            <a href="/admin" class="admin-home btn btn-primary btn-lg" id="adminHomeButton"><i class="fa fa-arrow-left"></i> &nbsp;Back</a>
+        </div>
 
-    <% if(orders.length < 1) { %>
-        <h2 class="text-center">There are no Orders ! </h2>
-    <% } else { %> 
-    <section class="order-list">
-        <% for(let item of orders.reverse()) { %>
-            <div class="card  my-4">
-                <div class="card-header text-center row">
-                    <div class="col-md">
-                        <h5><b>Order Id :</b> <%= item.orderid %></h5>
+        <% if(orders.length < 1) { %>
+            <h2 class="text-center">There are no Orders ! </h2>
+        <% } else { %> 
+        <section class="order-list">
+            <% for(let item of orders.reverse()) { %>
+                <div class="card  my-4">
+                    <div class="card-header text-center row">
+                        <div class="col-md">
+                            <h5><b>Order Id :</b> <%= item.orderid %></h5>
+                        </div>
+                        <div class="col-md">
+                            <h5><b>Date Of purchase :</b> <%=String(item.purchaseDate).slice(0,16)%></h5>
+                        </div>                        
                     </div>
-                    <div class="col-md">
-                        <h5><b>Date Of purchase :</b> <%=String(item.purchaseDate).slice(0,16)%></h5>
-                    </div>                        
-                </div>
-                <div class="card-body row">
-                    <ul class="list-group">
-                        <% let count=0;
-                        for(let itemList of item.orderList) { count++  %>
-                           
-                            <li class="list-group-item">
-                                <h6>Product no : <%=count%></h6>
-                                <%  if(itemList.item==null) { %>
-                                    <h5 class="text-center">This Product no longer exists sorry we cant display its information !</h5>
-                                <% }
-                                else{%>
-                                <div class="itemList row">
-                                    <div class="itemList-img col-md-2" >
-                                        <%if(itemList.item.image.data){%>
-                                            <img src="data:image/<%=itemList.item.image.contentType%>;base64,<%=itemList.item.image.data.toString('base64')%>" class="img-fluid" width="100%"/>
-                                        <%}
-                                        else{%>
-                                            <img src="<%=itemList.item.img%>" alt="Item Image" class="itemImg" width="100%" >
-                                        <%}%>
+                    <div class="card-body row">
+                        <ul class="list-group">
+                            <% let count=0;
+                            for(let itemList of item.orderList) { count++  %>
+                            
+                                <li class="list-group-item">
+                                    <h6>Product no : <%=count%></h6>
+                                    <%  if(itemList.item==null) { %>
+                                        <h5 class="text-center">This Product no longer exists sorry we cant display its information !</h5>
+                                    <% }
+                                    else{%>
+                                    <div class="itemList row">
+                                        <div class="itemList-img col-md-2" >
+                                            <%if(itemList.item.image.data){%>
+                                                <img src="data:image/<%=itemList.item.image.contentType%>;base64,<%=itemList.item.image.data.toString('base64')%>" class="img-fluid" width="100%"/>
+                                            <%}
+                                            else{%>
+                                                <img src="<%=itemList.item.img%>" alt="Item Image" class="itemImg" width="100%" >
+                                            <%}%>
+                                        </div>
+                                        <div class="itemList-name col-5 d-flex align-items-center p-3">
+                                            <h5><%=itemList.item.name%></h5>
+                                        </div>
+                                        <div class="itemList-price col d-flex align-items-center p-3">
+                                            <h5><b>Price :</b> &#8369; <%=itemList.item.price%></h5>
+                                        </div>
+                                        <div class="itemList-quantity col d-flex align-items-center p-3">
+                                            <h5> <b>Quantity :</b> <%=itemList.quantity%></h5>
+                                        </div>
                                     </div>
-                                    <div class="itemList-name col-5 d-flex align-items-center p-3">
-                                        <h5><%=itemList.item.name%></h5>
-                                    </div>
-                                    <div class="itemList-price col d-flex align-items-center p-3">
-                                        <h5><b>Price :</b> &#8369; <%=itemList.item.price%></h5>
-                                    </div>
-                                    <div class="itemList-quantity col d-flex align-items-center p-3">
-                                        <h5> <b>Quantity :</b> <%=itemList.quantity%></h5>
-                                    </div>
-                                </div>
-                            <% } %>
-                            </li>
-                         <% } %> 
-                    </ul>
-                </div>
-                <div class="card-footer text-center row">
-                    <div class="col-md">
-                        <h5><b>Payment Id :</b> <%=item.paymentid%></h5>
+                                <% } %>
+                                </li>
+                            <% } %> 
+                        </ul>
                     </div>
-                    <div class="col-md">
-                        <h5><b>Amount Paid :</b> &#8369;; <%=item.finalPrice%></h5>
+                    <div class="card-footer text-center row">
+                        <div class="col-md">
+                            <h5><b>Payment Id :</b> <%=item.paymentid%></h5>
+                        </div>
+                        <div class="col-md">
+                            <h5><b>Amount Paid :</b> &#8369;; <%=item.finalPrice%></h5>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <% } %> 
-    </section>
-    <% } %>
+            <% } %> 
+        </section>
+        <% } %>
+    </div>
 </div>

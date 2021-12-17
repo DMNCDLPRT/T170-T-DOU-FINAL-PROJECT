@@ -16,7 +16,6 @@ const getUserCart = async (req, res) => {
     }
     const data = user.cart;
     res.render("user/cart", { data, title: "Your Cart" });
-    /* res.status(404).render('error/error', {"status": "404"}); */
 }
 
 const addToCart = async (req, res) => {

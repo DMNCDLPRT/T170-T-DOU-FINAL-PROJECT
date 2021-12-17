@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Product = require('../models/product');
+const { validateProd } = require('../models/product');
 const { Reviews } = require("../models/reviews");
 const { Customer } = require("../models/customer");
 const fs = require('fs-extra');
@@ -40,11 +41,14 @@ const viewAddNewProduct = (req, res) => {
 }
 
 const product =  async (req, res) => {
-    
-    try {
-        
-        const data = req.body;
+    const { error } = validateProd(req.body);
+    if(error){
+        let messageError = error.details[0].message;
+        return res.status(422).json({ message: messageError});
+    }
+    const data = req.body;
 
+    try {
         if(data.price <= Number(100000)){
             let file; 
             try {
@@ -55,21 +59,19 @@ const product =  async (req, res) => {
                 data.image = null;
             }
             await Product.create(data);
+            res.status(200).json({ name: data.name });
+            console.log("Item Added Sucessfully");
         
-            /* req.flash("status", "Item Added Sucessfully!!"); */
-            console.log("Item Added Sucessfully")
-            res.redirect("/");
         } else{
-            /* req.flash('error',"You cannot set price more than 100000"); */
-            console.log("error price more than 100000");
             console.log(data.price);
+            res.json({ status: 'error', error: 'You cannot set price more than 1000000'});
             res.redirect("/admin/products/new");
         }
     } catch (e) {
         console.log(e);
-        res.status(404).render("error/error", { status: "404" });
-      }
-};
+        res.status(400).json({ error: 'error', message: 'Somthing went wrong' });
+    }
+}
 
 const viewViewProduct = async(req, res) => {
     try {
@@ -144,14 +146,15 @@ const productReviews = async (req, res) => {
 
     const { user_id } = req.params;
     const data = req.body;
-    console.log(data);
+    console.log(data); 
 
     try {
+
         if (data.rating == '0'){
-            return res.json({ status: 'error-rating', error: 'rating is required' }); 
+            return res.status(400).json({ error: 'rating is required' }); 
         }
         if (data.comment == ''){
-            return res.json({ status: 'error-comment', error: 'comment is required' }); 
+            return res.status(400).json({ error: 'comment is required' }); 
         }
 
         let username = await Customer.findById(user_id);
@@ -160,17 +163,17 @@ const productReviews = async (req, res) => {
         data.date = Date.now();
         const { id } = req.params;
         
-        const productObj = await Product.findById(id);  //Finding the Product Object
-        const reviewObj = new Reviews(data);            //Creating an object of the Reviews Model having the data value as productId, to which changes will be made
-        productObj.reviews.push(reviewObj);             //Automaticaly Pushes Only the Object id inside the Array [as mentioned in the schema]
-        await productObj.save();                        //Product is updated and then saved in Data base;
-        await reviewObj.save();                         //Product is updated and then saved in Data base;
+        const productObj = await Product.findById(id);  // Finding the Product Object
+        const reviewObj = new Reviews(data);            // Creating an object of the Reviews Model having the data value as productId, to which changes will be made
+        productObj.reviews.push(reviewObj);             // Automaticaly Pushes Only the Object id inside the Array [as mentioned in the schema]
+        await productObj.save();                        // Product is updated and then saved in Data base;
+        await reviewObj.save();                         // Product is updated and then saved in Data base;
 
         console.log("Comment Saved in Database");
         return res.status(200).json({ user: data.user });
 
     } catch {
-        return res.status(404).json({ error: 'Something went wrong' }); 
+        return res.status(404).json({ error: 'error', message: 'Something went wrong' }); 
     }
 }
 
@@ -192,9 +195,9 @@ const getViewProduct = async (req, res) => {
         const { id, rev_id } = req.params;
         try {
             const data = await Reviews.findById(rev_id);
-            res.render("reviews/edit", { data, id, rev_id });
+            res.render("user/edit", {title: "T'Dou | Edit Comment", data, id, rev_id });
         } catch (e) {
-            req.flash("error", "Sorry We encountered a problem");
+            /* req.flash("error", "Sorry We encountered a problem"); */
             res.redirect(`/products/${id}`);
         }
     } catch (e) {
@@ -209,14 +212,13 @@ const patchReviwProduct = async (req, res) => {
         data.date = Date.now();
         try {
             await Reviews.findByIdAndUpdate(rev_id, data);
-            req.flash("success", "Your Review was Updated successfully");
-            res.redirect(`/products/${id}`);
+            return res.status(200).json({ rating: data.rating });
         } catch (e) {
-            req.flash("error", "There was a problem updating your comment");
-            res.redirect(`/products/${id}`);
+            res.status(404).json({ error: 'error', message: 'There was a problem updating your comment' });
+            res.redirect(`/view/products/${id}`);
         }
     } catch (e) {
-        res.status(404).render("error/error", { status: "404" });
+        res.status(404).json({ error: 'error', message: 'Something went wrong' }); 
     }
 }
 

@@ -8,82 +8,83 @@
                 </div>
                 <img src="/images/home-image.png" alt="shopping cart" class="img-fluid">
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center">
                         <h4 class="font-weight-bold">Add new Product item</h4>
                     </div>
                     <div class="card-body">
-                        <form action="/admin/products/new" method="POST" class="needs-validation" novalidate enctype="multipart/form-data" id="addproduct">
+                        <form action="/admin/products/new" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+                            <div class="validate error text-danger text-center mb-2"></div>
                             <!-- Product name -->
-                            <div class="form-group">
-                                <label class="col-form-label" for="username">Product Name</label>
-                                <input type="text" name="name" id="name" placeholder="Enter a product name" required class="form-control">
-                                <div class="valid-feedback">Looks good!</div>
-                                <div class="invalid-feedback">Not a suitable name</div>
-                            </div>
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label class="col-form-label" for="prodName">Product Name</label>
+                                    <input type="text" name="prodName" id="name" placeholder="Enter a product name" required class="form-control" required>
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">Not a suitable name</div>
+                                </div>
 
-                            <!-- product price -->
-                            <div class="form-group">
-                                <label class="form-label" for="price">Price</label>
-                                <input type="text" id="price" class="form-control" placeholder="Enter product price" name="price" required/>
-                                <div class="valid-feedback">Looks good!</div>
-                                <div class="invalid-feedback">Not a valid price!</div>
+                                <!-- product price -->
+                                <div class="form-group col">
+                                    <label class="form-label" for="prodPrice">Price</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">₱</span>
+                                        <input type="number" name="prodPrice" placeholder="Enter product price" class="form-control" aria-label="Amount (to the nearest dollar)" required>
+                                        <span class="input-group-text">.00</span>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- default file chooser  -->
                             <h6 class="my-3 text-center">
-                                You can give either a image file or a image link
+                                You can give either a image file or a image link 
                                 <br>
                                 Choose which type of file
                             </h6>
-
-                            <fieldset>
-                                <div class="form-check form-switch">
-                                  <input class="file form-check-input" type="checkbox" id="fileButton">
-                                  <label class="form-check-label" for="fileButton">local file</label>
+                            <fieldset class="form-group">
+                                <div class="form-check" id="imageButton">
+                                  <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                                    Local Image
+                                  </label>
                                 </div>
-                                <div class="form-check form-switch">
-                                  <input class="link form-check-input" type="checkbox" id="linkButton">
-                                  <label class="form-check-label" for="linkButton">image link</label>
-                                </div>
-                              </fieldset>
-
+                                <div class="form-check" id="fileButton">
+                                  <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+                                    Image link
+                                  </label>
+                            </fieldset>
                             <div class="form-group" id="imageFile">
-                                <label class="form-label" for="image">Choose local file</label>
-                                <input type="file" class="form-control" name="image"/>
+                                <label class="form-label" for="prodImage">Choose local file</label>
+                                <input type="file" class="form-control" name="prodImage"/>
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Not a valid image file!</div>                                        
                             </div>
                             <!-- image file link.. online -->
                             <div class="form-group invisible" id="imageLink">
-                                <label class="form-label" for="img">Product Image Link</label>
-                                <input type="text" id="img" placeholder="Product link" class="form-control" name="img"/>
+                                <label class="form-label" for="prodImg">Product Image Link</label>
+                                <input type="text" id="img" placeholder="Product link" class="form-control" name="prodImg"/>
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Not a valid image link</div>
                             </div>
-                            <!-- bootswatch file chooser -->
-                            <!-- <div class="form-group">
-                                <label for="formFile" class="form-label mt-4">Default file input example</label>
-                                <input class="form-control" type="file" id="formFile">
-                            </div> -->
                             <div class="form-group">
-                                <textarea class="form-control" id="desc" rows="4" name="desc" required></textarea>
-                                <label class="form-label" placeholder="Enter product Description" for="desc">Product Description</label>
+                                <label class="form-label" for="prodDesc">Product Description</label>
+                                <textarea class="form-control" placeholder="Enter product Description" id="desc" rows="4" name="prodDesc" required></textarea>
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Not a proper description</div>
                             </div>
                             <div class="form-group">
-                                <label for="role" class="form-label"><h6>Type of Product</h6></label>
-                                    <select class="form-control" aria-label="role" name="type">
+                                <label for="prodType" class="form-label"><h6>Type of Product</h6></label>
+                                    <select class="form-control" aria-label="role" name="prodType">
                                         <option selected value="Technology">Technology</option>
                                         <option value="Food">Food</option>
                                         <option value="Personal and Heath Care">Personal and Heath Care</option>
                                         <option value="Other">Other</option>
                                     </select>
                             </div>
-                            <div class="form-group text-center">
-                                <button itype="submt" class="btn btn-success">Submit</button>
+                            <div class="form-group text-center mt-4">
+                                <button type="submit" class="btn btn-success">Submit</button>
                                 <a href="/admin" class="btn btn-light">Cancel</a>
                             </div>
                         </form>
@@ -97,23 +98,61 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const imageFile = document.querySelector("#imageFile");
-        const imageLink = document.querySelector("#imageLink");
+        const imageLink = document.querySelector("#imageLink")
 
-        document.querySelector("#fileButton").addEventListener("click", e => {
+        document.querySelector("#imageButton").addEventListener("click", e => {
             e.preventDefault();
             imageFile.classList.remove("invisible");
             imageLink.classList.add("invisible");
-            removed("checked");
-
+            document.getElementById("imageButton").checked = true;
         });
 
-        document.querySelector("#linkButton").addEventListener("click", e => {
+        document.querySelector("#fileButton").addEventListener("click", e => {
             e.preventDefault();
             imageLink.classList.remove("invisible");
             imageFile.classList.add("invisible");
-            add("ckecked");
-
+            document.getElementById("fileButton").checked = true;
         });
 
+    });
+</script>
+<script>
+    /* const alertAlert = document.getElementsByClassName('.alert.alert-danger'); */
+    const form = document.querySelector('form');
+    const validate = document.querySelector('.validate.error');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        // reset errors
+        
+        validate.textContent = '';
+        /* alertAlert.textContent = ''; */
+        // get values
+        const name = form.prodName.value;
+        const price = form.prodPrice.value;
+        const image = form.prodImage.value;
+        const img = form.prodImg.value;
+        const desc = form.prodDesc.value;
+        const type = form.prodType.value;
+
+        try {
+            const res = await fetch('/admin/products/new', { 
+                method: 'POST',
+                enctype: 'multipart/form-data',
+                body: JSON.stringify({ name, price, image, img, desc, type }),
+                headers: {'Content-Type': 'application/json'}
+            });
+
+            const data = await res.json();
+            console.log(data);
+
+            if (data.error) { validate.textContent = data.error; }
+            if (data.message) { validate.textContent = data.message; }
+            if (data.name) {
+                form.classList.add('was-validated');
+                location.assign('/admin');
+            }
+        } catch (err) {
+            console.log(err);
+        }
     });
 </script>

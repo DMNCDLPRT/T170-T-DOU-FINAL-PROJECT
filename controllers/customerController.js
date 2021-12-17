@@ -1,8 +1,7 @@
  const { Customer, validate } = require('../models/customer');
 const bcrypt = require('bcryptjs');
 
-
-const getAllCustomers = async (req, res, next) => {
+const getAllCustomers = async (req, res) => {
     const list = await Customer.find().exec();
     res.render('admin/customerlist', {
         customers: list,
@@ -10,12 +9,25 @@ const getAllCustomers = async (req, res, next) => {
     });
 }
 
-const getsignupCustomerView =  (req, res, next) => {
+const getsignupCustomerView =  (req, res) => {
     res.render('auth/signupCustomer', {title: "T'Dou | Sign Up"});
 }
 
-const getAddCustomerView = (req, res, next) => {
+const getAddCustomerView = (req, res) => {
     res.render('admin/addCustomer', {title: "Admin | Add Customer"});
+}
+
+const getUserProfileView = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const onecustomer = await Customer.findById(id).exec();
+        res.render('user/profile', {
+            customer: onecustomer,
+            title: "T'Dou | " + onecustomer.username
+        });
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
 }
 
 const addCustomer = async (req, res) => {
@@ -29,31 +41,32 @@ const addCustomer = async (req, res) => {
     console.log(data);
     const { pssword: plainPassword } = req.body;
 
-    try {
+    if(await Customer.findOne({ username: data.username })){
+        return res.status(422).json({ error: 'error-username', message: 'Username already exist' });
+    }
+    if(await Customer.findOne({ email: data.email })){
+        return res.status(422).json({ error: 'error-email', message: 'Email already in use' });
+    }
+    if(await Customer.findOne({ phone: data.phone })){
+        return res.status(422).json({ error: 'error-contact', message: 'Contact already in use' })
+    }
 
-        if(await Customer.findOne({ username: data.username })){
-            return res.status(422).json({ error: 'error-username', message: 'Username already exist' });
-        }
-        if(await Customer.findOne({ email: data.email })){
-            return res.status(422).json({ error: 'error-email', message: 'Email already in use' });
-        }
-        if(await Customer.findOne({ phone: data.phone })){
-            return res.status(422).json({ error: 'error-contact', message: 'Contact already in use' })
-        }
-        
+    try {
         const password = await bcrypt.hash(plainPassword, 10);
-        let customer = await new Customer({
+        let user = new Customer({
+            fullname: data.fullname,
             username: data.username,
             email: data.email,
             phone: data.phone,
             pssword: password,
             role: data.role
         });
-        customer = await customer.save();
+        user = await user.save();
 
-        res.status(200).json({ message: 'Account created successfully' })
-        return res.redirect('/loginCustomer');
+        console.log("Account created successfully")
+        return res.status(200).json({ user: user._id });
     } catch (error) {
+        console.log("errorerreere")
         res.status(400).json({ error: 'something went wrong' });
     }
 }
@@ -73,7 +86,10 @@ const getUpdateCustomerView = async (req, res, next) => {
 
 const updateCustomer = async(req, res, next) => {
     const { error } = validate(req.body);
-    if (error) return res.status(422).send(error.details[0].message);
+    if(error){
+        const messageError = error.details[0].message;
+        return res.status(422).json({ error: messageError});
+    }
 
     const id = req.params.id;
     const data = req.body;
@@ -82,6 +98,7 @@ const updateCustomer = async(req, res, next) => {
     const password = await bcrypt.hash(plainPassword, 10);
 
     let customer = await Customer.findByIdAndUpdate(id, {
+        fullname: data.fullname,
         username: data.username,
         email: data.email,
         phone: data.phone,
@@ -126,6 +143,7 @@ module.exports = {
     getAllCustomers,
     getAddCustomerView,
     getsignupCustomerView,
+    getUserProfileView,
     addCustomer,
     getUpdateCustomerView,
     updateCustomer,

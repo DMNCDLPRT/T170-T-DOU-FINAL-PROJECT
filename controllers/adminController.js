@@ -1,6 +1,7 @@
 const express = require("express")
 const Product = require("../models/product");
 const { Orders } = require("../models/order");
+const { Customer } = require("../models/customer");
 
 
 const viewAdminProducts = async (req, res) => {

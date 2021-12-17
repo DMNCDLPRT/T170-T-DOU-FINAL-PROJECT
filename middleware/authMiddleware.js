@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { Customer } = require('../models/customer');
-
-const JWT_SECRET = 'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfjk';
+require('dotenv').config();
 
 const requireAuth = (req, res, next) => {
 
@@ -9,7 +8,7 @@ const requireAuth = (req, res, next) => {
     
     // check json web token exist and is user verifed
     if(token) {
-        jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
+        jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
             if(err){
                 console.log(err.message);
                 res.redirect('/loginCustomer');
@@ -30,7 +29,7 @@ const checkUser = (req, res, next) => {
     const token = req.cookies.jwt;
 
     if(token){
-        jwt.verify(token, JWT_SECRET, async (err, decodedToken) => {
+        jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
             if(err){
                 console.log(err.message);
                 res.locals.user = null;
@@ -53,18 +52,19 @@ const isAdmin = (req, res, next) => {
     const token = req.cookies.jwt;
 
     if(token){
-        jwt.verify(token, JWT_SECRET, async (err, decodedToken) => {
+        jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
             if(err){
                 console.log(err.message);
-                res.redirect('/loginCustomer');
+                res.redirect('/');
                 next();
             } else {
+                console.log("check isAdmin middleware");
+                console.log(decodedToken);
                 let user = await Customer.findById(decodedToken.id);
-                if(user.role !== "Admin"){
-                    res.status(404);
-                    res.send("You need to be an Admin to continue!")
-                }
                 next();
+                if(user.role !== "Admin"){
+                    res.status(404).json({ error: 'You need to be an admin to continue!' }); 
+                }
             }
         });
     } else {

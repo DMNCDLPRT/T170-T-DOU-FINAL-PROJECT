@@ -1,36 +1,52 @@
 <div class="component">
     <div class="card-body">
-        <div class="row">
-            <div class="col-6">
-                <h1>Welcome To T'Dou</h1>
-                <h4>Best online Shopping platform</h4>
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-md-4 text-center">
+                <div class="text-center">
+                    <h2 class="font-weight-bold">Welcome To T'Dou</h2>
+                    <h4>Best online Shopping platform</h4>
+                </div>
+                <img src="/images/home-image.png" alt="shopping cart" class="img-fluid">
             </div>
-            <div class="col-5">
+            <div class="col-md-5">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h4 class="font-weight-bold">Add-Account</h4>
+                        <h4 class="font-weight-bold">Add new Customer</h4>
                         </div>
                     <div class="card-body">
-                        <form action="/addCustomer" method="post" class="needs-validation">
+                        <form action="/addCustomer" method="POST" class="needs-validation">
+                            <div class="validate error text-danger text-center"></div>
                             <div class="form-group">
-                                <label class="col-form-label" for="username">User Name</label>
-                                <input type="text" class="form-control" name="username" placeholder="enter your username" id="username">
+                                <label class="col-form-label" for="username">Username</label>
+                                <input type="text" class="form-control" name="uid" placeholder="Username" id="username">
+                                <div class="username error text-danger"></div>
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label" for="email">E-mail</label>
-                                <input type="email" class="form-control" name="email" placeholder="example@email.com" id="email">
+                                <label class="col-form-label" for="Email">E-mail</label>
+                               <input type="email" class="form-control" name="Email" placeholder="example@email.com" id="email">
+                               <div class="email error text-danger"></div>                                   
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label" for="email">Phone Number</label>
-                               <input type="number" class="form-control" name="phone" placeholder="Phone Number" id="phone">                                        
+                                <label class="col-form-label" for="contact">Phone Number</label>
+                               <input type="number" class="form-control" name="contact" placeholder="Phone Number" id="phone">    
+                               <div class="phone error text-danger"></div>                                    
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label" for="pssword">Password</label>
-                                <input type="password" class="form-control" name="pssword" placeholder="Password" id="pssword">
+                                <label class="col-form-label" for="pass">Password</label>
+                                <input type="password" class="form-control" name="pass" placeholder="Password" id="pssword">
+                                <div class="password error text-danger"></div>
+                            </div>
+                            <div class="form-group pb-4">
+                                <label for="role" class=col-form-label"><h6>User Role :</h6></label>
+                                <select class="form-control" aria-label="Role" name="Role">
+                                  <option selected value="Customer">Customer</option>
+                                  <option value="Admin">Admin</option>
+                                </select>
+                                <div class="role error text-danger"></div>
                             </div>
                             <div class="form-group text-center">
-                                <button itype="submt" class="btn btn-success">Submit</button>
-                                <a href="/admin" class="btn btn-light">Cancel</a>
+                                <button type="submit" class="btn btn-success">Submit</button>
+                                <a href="/admin" class="btn btn-light">Cancel</a><br>
                             </div>
                         </form>
                     </div>
@@ -39,3 +55,51 @@
         </div>
     </div>
 </div>
+
+<script>
+    /* const alertAlert = document.getElementsByClassName('.alert.alert'); */
+    const form = document.querySelector('form');
+    const validate = document.querySelectorAll('.needs-validation');
+    const validateError = document.querySelector('.validate.error');
+    const usernameError = document.querySelector('.username.error');
+    const emailError = document.querySelector('.email.error');
+    const phoneError = document.querySelector('.phone.error');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        // reset errors
+        /* alertAlert.textContent = ''; */
+        validateError.textContent = '';
+        usernameError.textContent = '';
+        emailError.textContent = '';
+        phoneError.textContent = '';
+        // get values
+        const username = form.uid.value;
+        const email = form.Email.value;
+        const phone = form.contact.value;
+        const pssword = form.pass.value;
+        const role = form.Role.value;
+        try {
+            const res = await fetch('/addCustomer', { 
+                method: 'POST', 
+                body: JSON.stringify({ username, email, phone, pssword, role }),
+                headers: {'Content-Type': 'application/json'}
+            });
+            const data = await res.json();
+            console.log(data.error);
+
+            if (data.error ){ validateError.textContent = data.error }
+            if (data.error === 'error-username') {  usernameError.textContent = data.message; }
+            if (data.error === 'error-email') { emailError.textContent = data.message; }
+            if (data.error === 'error-contact') { phoneError.textContent = data.message; }
+
+            if (data.user) {
+                form.classList.add('was-validated');
+                location.assign('/admin');
+            }
+        } catch (err) {
+            console.log(err);
+
+        }
+    });
+</script>

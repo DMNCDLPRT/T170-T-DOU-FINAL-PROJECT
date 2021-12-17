@@ -1,10 +1,7 @@
-<!-- <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div> -->
 <div class="component">
     <div class="card-body">
         <div class="row d-flex justify-content-between align-items-center">
-            <div class="col-md-6 text-center">
+            <div class="col-md-4 text-center">
                 <div class="text-center">
                     <h2 class="font-weight-bold">Welcome To T'Dou</h2>
                     <h4>Best online Shopping platform</h4>
@@ -18,6 +15,7 @@
                     </div>
                     <div class="card-body">
                         <form action="/loginCustomer" method="POST" class="needs-validation">
+                            <div class="error error text-danger"></div>
                             <div class="form-group">
                                 <label class="col-form-label" for="email">User ID</label>
                                 <input type="text" class="form-control has-danger" name="userEmailPhone" placeholder="Username, email or phone" id="userEmailPhone">
@@ -29,7 +27,7 @@
                                 <div class="password error text-danger"></div>
                                 <a href="/forgotPassword">Forgot Password?</a>
                             </div>
-                            <div class="form-group text-center">
+                            <div class="form-group text-center mb-4">
                                 <button itype="submt" class="btn btn-success">log in</button><br>
                                 <a href="/signupCustomer" class="display-center">Don't have an account? Sign-in</a>
                             </div>
@@ -43,28 +41,34 @@
 <script>
     /* const alertAlert = document.getElementsByClassName('.alert.alert-danger'); */
     const form = document.querySelector('form');
-    const validate = document.querySelectorAll('.needs-validation');
+    const validate = document.querySelectorAll('.error.error');
     const emailError = document.querySelector('.userEmailPhone.error');
     const passwordError = document.querySelector('.password.error');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         // reset errors
         
+        validate.textContent = '';
         emailError.textContent = '';
         passwordError.textContent = '';
         /* alertAlert.textContent = ''; */
         // get values
         const uid = form.userEmailPhone.value;
         const password = form.pssword.value;
+
         try {
             const res = await fetch('/loginCustomer', { 
                 method: 'POST', 
                 body: JSON.stringify({ uid, password }),
                 headers: {'Content-Type': 'application/json'}
             });
+
             const data = await res.json();
             console.log(data);
 
+            if (data.status === 'error') {
+                validate.textContent = data.error;
+            }
             if (data.status === 'error-email') {
                 emailError.textContent = data.error;
             }
@@ -80,4 +84,5 @@
             console.log(err);
         }
     });
+
 </script>
