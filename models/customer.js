@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const { product } = require('./product');
 const { orders } = require('./order');
 const Joi = require('joi');
-const findOrCreate = require('mongoose-findorcreate');
 const { schema } = require('joi/lib/types/object');
 
 const customerSchema = new mongoose.Schema({
@@ -67,7 +66,7 @@ const validateCustomer = (customer) => {
         role:               Joi.string().required()
     }
 
-    return Joi.validate(customer, schema);
+    return Joi.validate = (customer, schema);
 }
 
 const validateLogin = (customer) => {
@@ -82,7 +81,6 @@ const validateLogin = (customer) => {
     return Joi.login = (customer, schema);
 }
 
-customerSchema.plugin(findOrCreate);
 const Customer = mongoose.model('Customer', customerSchema);
 
 module.exports.Customer = Customer;

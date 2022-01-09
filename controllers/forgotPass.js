@@ -1,4 +1,4 @@
-const { Customer, forgot } = require('../models/customer');
+const { Customer } = require('../models/customer');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -7,28 +7,31 @@ const getForgotPasswordView = (req, res, next) => {
 }
 
 const forgotPassword = async (req, res, next) => {
-    const { error } = forgot(req.body);
-    if(error) return res.status(422).send(error.details[0].message);
-
-    const { token, pssword: plainPassword} = req.body;
-    const id = req.params.id;
-
-    const user = jwt.verify(token, JWT_SECRET);
-    const _id = user(id);
-
-    const password = await bcrypt.hash(plainPassword, 10);
-
-    let customer = await Customer.findByIdAndUpdate(_id, {
-        pssword: password
-    }, {new: true});
-
-    if(!customer) return res.status(404).send('Customer with the given id not found');
-
-    res.redirect('auth/loginCustomer');
-
+    const data = req.body;
+    try{
+        if(await Customer.findOne({ email: data.email })){
+            const email = await Customer.findOne({ email: data.email });
+            res.status(200).json({ 
+                success: 'email-found',
+                url: '/forgotPassword/reset',
+                data: email
+            });
+        }
+        res.status(400).json({ error: 'error', message: 'Email not found' });
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
 }
+
+const getNewPasswordView = (req, res, next) => {
+    let userData = req.params;
+    res.render('auth/reset', { data: userData, title: "New Password"});
+}
+
+
 
 module.exports = {
     getForgotPasswordView,
-    forgotPassword
+    forgotPassword,
+    getNewPasswordView
 }

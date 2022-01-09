@@ -23,7 +23,6 @@ const loginCustomer = async (req, res, next) => {
     const { uid, password } = req.body;
 	// const user = await Customer.findOne({ email }).lean();
 
-	console.log(uid, password);
 	const user = await Customer.findOne({
     $or: [{
       "email": uid

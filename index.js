@@ -4,6 +4,7 @@ const path = require('path');
 const expressLayoutes = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
 const config = require('./startup/config');
+const cookieParser = require('cookie-parser');
 const winston = require('winston');
 const err = require('./middleware/errors');
 const customerRoutes = require('./routes/customer-routes');
@@ -13,7 +14,6 @@ const userRoutes = require('./routes/user-routes');
 const orderRoutes = require('./routes/order-routes');
 const methodOverride = require("method-override");
 const app = express();
-const cookieParser = require('cookie-parser');
 
 require("dotenv").config();
 

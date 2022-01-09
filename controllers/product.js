@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Product = require('../models/product');
-const { validateProd } = require('../models/product');
 const { Reviews } = require("../models/reviews");
 const { Customer } = require("../models/customer");
 const fs = require('fs-extra');
@@ -39,34 +38,32 @@ const viewAddNewProduct = (req, res) => {
         /* res.status(404).render("error/error", { status: "404" }); */
     }
 }
-
-const product =  async (req, res) => {
-    const { error } = validateProd(req.body);
-    if(error){
-        let messageError = error.details[0].message;
-        return res.status(422).json({ message: messageError});
-    }
-    const data = req.body;
+const product = async (req, res) => {
 
     try {
-        if(data.price <= Number(100000)){
-            let file; 
-            try {
-                console.log(req.file.path);
-                file = path.join(__dirname, "/uploads/product/" + req.file.filename);
-                data.image = { data: fs.readFileSync(file), contentType: "image/png" };
-            } catch {
-                data.image = null;
-            }
-            await Product.create(data);
-            res.status(200).json({ name: data.name });
-            console.log("Item Added Sucessfully");
-        
-        } else{
-            console.log(data.price);
-            res.json({ status: 'error', error: 'You cannot set price more than 1000000'});
-            res.redirect("/admin/products/new");
+        const data = req.body;
+        if(data.name == '' || data.desc == '' || data.price == ''){
+            return res.json({ status: 'error', error: 'Required fields must be filled in'});
         }
+        if(data.image == '' && data.img == '') {
+            return res.json({ status: 'error', error: 'Required fields must be filled in'});
+        }
+        if(data.price >= Number(100000)) {
+            console.log(data.price);
+            return res.json({ status: 'error', error: 'You cannot set price more than 1000000'});
+        }
+        try {
+            let file; 
+            console.log(req.file.path);
+            file = path.join(__dirname, "/uploads/product/" + req.file.filename);
+            data.image = { data: fs.readFileSync(file), contentType: "image/png" };
+        } catch {
+            data.image = null;
+        }
+        await Product.create(data);
+        console.log("Item Added Sucessfully " + data.image + data.img);
+        res.redirect("/admin/adminProducts");
+
     } catch (e) {
         console.log(e);
         res.status(400).json({ error: 'error', message: 'Somthing went wrong' });

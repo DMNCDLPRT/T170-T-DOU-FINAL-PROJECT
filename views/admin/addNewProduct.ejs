@@ -19,19 +19,19 @@
                             <!-- Product name -->
                             <div class="row">
                                 <div class="form-group col">
-                                    <label class="col-form-label" for="prodName">Product Name</label>
-                                    <input type="text" name="prodName" id="name" placeholder="Enter a product name" required class="form-control" required>
+                                    <label class="col-form-label" for="name">Product Name</label>
+                                    <input type="text" name="name" id="name" placeholder="Enter a product name" class="form-control" required>
                                     <div class="valid-feedback">Looks good!</div>
-                                    <div class="invalid-feedback">Not a suitable name</div>
                                 </div>
 
                                 <!-- product price -->
                                 <div class="form-group col">
-                                    <label class="form-label" for="prodPrice">Price</label>
+                                    <label class="col-form-label" for="price">Price</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">₱</span>
-                                        <input type="number" name="prodPrice" placeholder="Enter product price" class="form-control" aria-label="Amount (to the nearest dollar)" required>
+                                        <input type="number" name="price" placeholder="Enter product price" class="form-control" aria-label="Amount (to the nearest dollar)" required>
                                         <span class="input-group-text">.00</span>
+                                        <div class="valid-feedback">Looks good!</div>
                                     </div>
                                 </div>
                             </div>
@@ -42,41 +42,33 @@
                                 <br>
                                 Choose which type of file
                             </h6>
-                            <fieldset class="form-group">
-                                <div class="form-check" id="imageButton">
-                                  <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                                    Local Image
-                                  </label>
+                            <div class="row">
+                                <div class="col-2" id="imageButton">
+                                    <input type="button" value="Local file" >
                                 </div>
-                                <div class="form-check" id="fileButton">
-                                  <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
-                                    Image link
-                                  </label>
-                            </fieldset>
+                                <div class="col" id="fileButton">
+                                    <input type="button" value="Image Link">
+                                </div>
+                            </div>
                             <div class="form-group" id="imageFile">
-                                <label class="form-label" for="prodImage">Choose local file</label>
-                                <input type="file" class="form-control" name="prodImage"/>
-                                <div class="valid-feedback">Looks good!</div>
-                                <div class="invalid-feedback">Not a valid image file!</div>                                        
+                                <label class="col-form-label" for="image">Choose local file</label>
+                                <input type="file" class="form-control" name="image" required/>
+                                <div class="valid-feedback">Looks good!</div>                                   
                             </div>
                             <!-- image file link.. online -->
                             <div class="form-group invisible" id="imageLink">
-                                <label class="form-label" for="prodImg">Product Image Link</label>
-                                <input type="text" id="img" placeholder="Product link" class="form-control" name="prodImg"/>
+                                <label class="form-label" for="img">Product Image Link</label>
+                                <input type="text" id="img" placeholder="Product link" class="form-control" name="img" required/>
                                 <div class="valid-feedback">Looks good!</div>
-                                <div class="invalid-feedback">Not a valid image link</div>
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="prodDesc">Product Description</label>
-                                <textarea class="form-control" placeholder="Enter product Description" id="desc" rows="4" name="prodDesc" required></textarea>
+                                <label class="col-form-label" for="prodDesc">Product Description</label>
+                                <textarea class="form-control" placeholder="Enter product Description" id="desc" rows="4" name="desc" required></textarea>
                                 <div class="valid-feedback">Looks good!</div>
-                                <div class="invalid-feedback">Not a proper description</div>
                             </div>
                             <div class="form-group">
-                                <label for="prodType" class="form-label"><h6>Type of Product</h6></label>
-                                    <select class="form-control" aria-label="role" name="prodType">
+                                <label for="type" class="col-form-label"><h6>Type of Product</h6></label>
+                                    <select class="form-control" aria-label="role" name="type">
                                         <option selected value="Technology">Technology</option>
                                         <option value="Food">Food</option>
                                         <option value="Personal and Heath Care">Personal and Heath Care</option>
@@ -99,60 +91,15 @@
     document.addEventListener("DOMContentLoaded", () => {
         const imageFile = document.querySelector("#imageFile");
         const imageLink = document.querySelector("#imageLink")
-
         document.querySelector("#imageButton").addEventListener("click", e => {
             e.preventDefault();
             imageFile.classList.remove("invisible");
             imageLink.classList.add("invisible");
-            document.getElementById("imageButton").checked = true;
         });
-
         document.querySelector("#fileButton").addEventListener("click", e => {
             e.preventDefault();
             imageLink.classList.remove("invisible");
             imageFile.classList.add("invisible");
-            document.getElementById("fileButton").checked = true;
         });
-
-    });
-</script>
-<script>
-    /* const alertAlert = document.getElementsByClassName('.alert.alert-danger'); */
-    const form = document.querySelector('form');
-    const validate = document.querySelector('.validate.error');
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        // reset errors
-        
-        validate.textContent = '';
-        /* alertAlert.textContent = ''; */
-        // get values
-        const name = form.prodName.value;
-        const price = form.prodPrice.value;
-        const image = form.prodImage.value;
-        const img = form.prodImg.value;
-        const desc = form.prodDesc.value;
-        const type = form.prodType.value;
-
-        try {
-            const res = await fetch('/admin/products/new', { 
-                method: 'POST',
-                enctype: 'multipart/form-data',
-                body: JSON.stringify({ name, price, image, img, desc, type }),
-                headers: {'Content-Type': 'application/json'}
-            });
-
-            const data = await res.json();
-            console.log(data);
-
-            if (data.error) { validate.textContent = data.error; }
-            if (data.message) { validate.textContent = data.message; }
-            if (data.name) {
-                form.classList.add('was-validated');
-                location.assign('/admin');
-            }
-        } catch (err) {
-            console.log(err);
-        }
     });
 </script>

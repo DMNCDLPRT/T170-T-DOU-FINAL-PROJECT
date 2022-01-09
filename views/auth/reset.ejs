@@ -1,0 +1,37 @@
+<div class="component">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-5">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4 class="font-weight-bold">New Password</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="/forgotPassword/reset" method="post" class="needs-validation">
+                            <div class="form-data">
+                                <i><%=data.email%></i>
+                            </div>
+                            <div class="card-body  p-3">
+                                <h5 class="card-title">Create a strong password</h5>
+                                <h6 class="card-subtitle text-muted">Create a new, strong password that you don't use for other website.</h6>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control"  name="pssword" placeholder="Password">
+                                <label for="floatingPassword">Password</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="password" class="form-control"  name="password" placeholder="Confirm Password">
+                                <label for="floatingPassword">Confirm Password</label>
+                            </div>
+                            <div class="form-group text-center m-3">
+                                <button type="submit" class="btn btn-success">Change</button><br>
+                            </div>
+                        </form>
+                        <a href="/signupCustomer" class="display-center">login  | </a>
+                        <a href="/signupCustomer" class="display-center">  Sign up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

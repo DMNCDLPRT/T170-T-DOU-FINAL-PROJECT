@@ -93,21 +93,27 @@ const updateCustomer = async(req, res, next) => {
 
     const id = req.params.id;
     const data = req.body;
+    try {
+        const { pssword: plainPassword } = req.body;
+        const password = await bcrypt.hash(plainPassword, 10);
 
-    const { pssword: plainPassword } = req.body;
-    const password = await bcrypt.hash(plainPassword, 10);
+        let user = await Customer.findByIdAndUpdate(id, {
+            fullname: data.fullname,
+            username: data.username,
+            email: data.email,
+            phone: data.phone,
+            pssword: password,
+            role: data.role
+        }, {new: true});
+        if(!user) return res.status(404).send('Customer with the given id not found');
 
-    let customer = await Customer.findByIdAndUpdate(id, {
-        fullname: data.fullname,
-        username: data.username,
-        email: data.email,
-        phone: data.phone,
-        pssword: password,
-        role: data.role
-    }, {new: true});
-    if(!customer) return res.status(404).send('Customer with the given id not found');
+        console.log("Account created successfully")
+        return res.status(200).json({ user: user.fullname });
 
-    res.redirect('/');
+    } catch (error) {
+        console.log("errorerreere")
+        res.status(400).json({ error: 'something went wrong' });
+    }
 }
 
 const getDeleteCustomerView = async (req, res, next) => {

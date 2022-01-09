@@ -2,7 +2,7 @@ const express = require('express');
 const {getAllCustomers, getAddCustomerView, getsignupCustomerView, addCustomer, getUserProfileView,
         getUpdateCustomerView, updateCustomer, getDeleteCustomerView, deleteCustomer, logoutCustomer} = require('../controllers/customerController');
 const {getloginCustomerView, loginCustomer } = require('../controllers/loginControler');
-const { getForgotPasswordView, forgotPassword  } = require('../controllers/forgotPass')    
+const { getForgotPasswordView, forgotPassword, getNewPasswordView  } = require('../controllers/forgotPass')    
 const { requireAuth, checkUser, isAdmin } = require('../middleware/authMiddleware');
 
 const router = express.Router();
@@ -30,7 +30,10 @@ router.get('/admin/deleteCustomer/:id', requireAuth, isAdmin, getDeleteCustomerV
 router.post('/admin/deleteCustomer/:id', requireAuth, isAdmin, deleteCustomer);
 
 router.get('/forgotPassword/', getForgotPasswordView);
-router.post('/forgotPassword/:id', forgotPassword);
+router.post('/forgotPassword', forgotPassword);
+
+router.get('/forgotPassword/reset', getNewPasswordView);
+router.post('/forgotPassword/reset',);
 
 router.get('/logoutCustomer', logoutCustomer);
 
