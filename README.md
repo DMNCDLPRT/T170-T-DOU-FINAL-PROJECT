@@ -10,4 +10,4 @@ npm  install
 ``` bash
 nodemon
 ```
-Navigate to http://localhost:6969/ or the mentioned port .
+Navigate to http://localhost:3000/ or the mentioned port .
