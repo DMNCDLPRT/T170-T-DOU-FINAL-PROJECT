@@ -1,6 +1,6 @@
 <div class="component">
     <div class="card-body">
-        <div class="row d-flex justify-content-between align-items-center">
+        <div class="row d-flex justify-content-around align-items-center">
             <div class="col-md-4 text-center">
                 <div class="text-center">
                     <h2 class="font-weight-bold">Welcome To T'Dou</h2>
@@ -8,27 +8,26 @@
                 </div>
                 <img src="/images/home-image.png" alt="shopping cart" class="img-fluid">
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-header text-center">
                         <h4 class="font-weight-bold">Log In</h4>
                     </div>
                     <div class="card-body">
-                        <form action="/loginCustomer" method="POST" class="needs-validation">
+                        <form action="/loginCustomer" method="POST" class="needs-validation" novalidate>
                             <div class="error error text-danger"></div>
                             <div class="form-group">
                                 <label class="col-form-label" for="email">User ID</label>
-                                <input type="text" class="form-control has-danger" name="userEmailPhone" placeholder="Username, email or phone" id="userEmailPhone">
+                                <input type="text" class="form-control has-danger" name="userEmailPhone" placeholder="Username, email or phone" id="userEmailPhone" required>
                                 <div class="userEmailPhone error text-danger"></div>
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label" for="pssword">Password</label>
-                                <input type="password" class="form-control" name="pssword" placeholder="Password" id="pssword">
+                                <input type="password" class="form-control" name="pssword" placeholder="Password" id="pssword" required>
                                 <div class="password error text-danger"></div>
-                                <a href="/forgotPassword">Forgot Password?</a>
                             </div>
-                            <div class="form-group text-center mb-4">
-                                <button itype="submt" class="btn btn-success">log in</button><br>
+                            <div class="form-group text-center pt-3">
+                                <button itype="submt" class="btn btn-success ">log in</button><br>
                                 <a href="/signupCustomer" class="display-center">Don't have an account? Sign-in</a>
                             </div>
                         </form>
@@ -47,7 +46,6 @@
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         // reset errors
-        
         validate.textContent = '';
         emailError.textContent = '';
         passwordError.textContent = '';
@@ -75,10 +73,10 @@
                 passwordError.textContent = data.error;
             }
             if (data.user) {
-                /* alertAlert.textContent = data.message; */
                 form.classList.add('was-validated');
                 location.assign('/');
             }
+            form.classList.add('was-validated');
         } catch (err) {
             console.log(err);
         }

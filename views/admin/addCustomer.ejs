@@ -14,31 +14,46 @@
                         <h4 class="font-weight-bold">Add new Customer</h4>
                         </div>
                     <div class="card-body">
-                        <form action="/addCustomer" method="POST" class="needs-validation">
+                        <form action="/signupCustomer" method="POST" class="needs-validation" novalidate>
                             <div class="validate error text-danger text-center"></div>
-                            <div class="form-group">
-                                <label class="col-form-label" for="username">Username</label>
-                                <input type="text" class="form-control" name="uid" placeholder="Username" id="username">
-                                <div class="username error text-danger"></div>
+                            <div class="row">
+                                <div class="form-group col-md">
+                                    <label class="col-form-label" for="fullName">Full name</label>
+                                    <input type="text" class="form-control" name="fullName" placeholder="Firstname Lastname" id="fullname" required>
+                                    <div class="firstname error text-danger"></div>
+                                </div>
+                                <div class="form-group col-md">
+                                    <label class="col-form-label" for="username">Username</label>
+                                    <input type="text" class="form-control" name="uid" placeholder="Username" id="lastName" required>
+                                    <div class="username error text-danger"></div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-form-label" for="Email">E-mail</label>
-                               <input type="email" class="form-control" name="Email" placeholder="example@email.com" id="email">
-                               <div class="email error text-danger"></div>                                   
+                            <div class="row">
+                                <div class="form-group col-md">
+                                    <label class="col-form-label" for="Email">E-mail</label>
+                                   <input type="email" class="form-control" name="Email" placeholder="example@email.com" id="email" required>
+                                   <div class="email error text-danger"></div>                                   
+                                </div>
+                                <div class="form-group col-md">
+                                    <label class="col-form-label" for="contact">Phone Number</label>
+                                   <input type="number" class="form-control" name="contact" placeholder="Phone Number" id="phone" required>
+                                   <div class="phone error text-danger"></div>                                    
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-form-label" for="contact">Phone Number</label>
-                               <input type="number" class="form-control" name="contact" placeholder="Phone Number" id="phone">    
-                               <div class="phone error text-danger"></div>                                    
-                            </div>
-                            <div class="form-group">
-                                <label class="col-form-label" for="pass">Password</label>
-                                <input type="password" class="form-control" name="pass" placeholder="Password" id="pssword">
-                                <div class="password error text-danger"></div>
+                            <div class="row">
+                                <div class="form-group col-md">
+                                    <label class="col-form-label" for="pass">Password</label>
+                                    <input type="password" class="form-control" name="pass" placeholder="Password" id="pssword" required>
+                                </div>
+                                <div class="form-group col-md">
+                                    <label class="col-form-label" for="confirmPass">Confirm Password</label>
+                                    <input type="password" class="form-control" name="confirmPass" placeholder="Confirm Password" id="conPssword" required>
+                                    <div class="password error text-danger"></div>
+                                </div>
                             </div>
                             <div class="form-group pb-4">
                                 <label for="role" class=col-form-label"><h6>User Role :</h6></label>
-                                <select class="form-control" aria-label="Role" name="Role">
+                                <select class="form-control" aria-label="Role" name="Role" required>
                                   <option selected value="Customer">Customer</option>
                                   <option value="Admin">Admin</option>
                                 </select>
@@ -46,7 +61,8 @@
                             </div>
                             <div class="form-group text-center">
                                 <button type="submit" class="btn btn-success">Submit</button>
-                                <a href="/admin" class="btn btn-light">Cancel</a><br>
+                                <a href="/" class="btn btn-light">Cancel</a><br>
+                                <a href="/loginCustomer">already have an account? log in</a>
                             </div>
                         </form>
                     </div>
@@ -64,25 +80,28 @@
     const usernameError = document.querySelector('.username.error');
     const emailError = document.querySelector('.email.error');
     const phoneError = document.querySelector('.phone.error');
+    const passError = document.querySelector('.password.error');
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         // reset errors
-        /* alertAlert.textContent = ''; */
         validateError.textContent = '';
         usernameError.textContent = '';
         emailError.textContent = '';
         phoneError.textContent = '';
         // get values
+        const fullname = form.fullName.value;
         const username = form.uid.value;
         const email = form.Email.value;
         const phone = form.contact.value;
         const pssword = form.pass.value;
+        const confirm = form.confirmPass.value;
         const role = form.Role.value;
+
         try {
-            const res = await fetch('/addCustomer', { 
+            const res = await fetch('/signupCustomer', { 
                 method: 'POST', 
-                body: JSON.stringify({ username, email, phone, pssword, role }),
+                body: JSON.stringify({ fullname, username, email, phone, confirm, pssword, role }),
                 headers: {'Content-Type': 'application/json'}
             });
             const data = await res.json();
@@ -92,13 +111,16 @@
             if (data.error === 'error-username') {  usernameError.textContent = data.message; }
             if (data.error === 'error-email') { emailError.textContent = data.message; }
             if (data.error === 'error-contact') { phoneError.textContent = data.message; }
+            if (data.error === 'error-password') { passError.textContent = data.message; }
 
             if (data.user) {
                 form.classList.add('was-validated');
-                location.assign('/admin');
+                location.assign('/');
             }
+            form.classList.add('was-validated');
         } catch (err) {
             console.log(err);
+            /* alertAlert.textContent = data.message; */
 
         }
     });

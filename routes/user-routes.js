@@ -4,11 +4,11 @@ const { getUserCart, addToCart, deleteCartItem, userOrders } = require('../contr
 
 const router = express.Router();
 
-router.get("*", requireAuth, checkUser);
+router.get("*", checkUser);
 
-router.get('/user/cart/:id', getUserCart);
-router.post('/user/cart/:productId/:id', addToCart);
-router.delete('/user/cart/delete/:id/:productId', deleteCartItem);
-router.get('/user/order/history/:id', userOrders);
+router.get('/user/cart/:id', requireAuth, getUserCart);
+router.post('/user/cart/:productId/:id', requireAuth, addToCart);
+router.delete('/user/cart/delete/:id/:productId', requireAuth, deleteCartItem);
+router.get('/user/order/history/:id', requireAuth, userOrders);
 
 module.exports = { routes: router }

@@ -3,10 +3,8 @@ const { Customer } = require('../models/customer');
 require('dotenv').config();
 
 const requireAuth = (req, res, next) => {
-
     const token = req.cookies.jwt;
     
-    // check json web token exist and is user verifed
     if(token) {
         jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
             if(err){

@@ -24,7 +24,6 @@ const userOrder = (req, res) => {
             res.send(order)
         })
         .catch((err) => {
-            /* req.flash('error', "There was a problem in the Network , please try again"); */
             res.send({"failure": "This payment cannot be done, please try again."});
         })
 
@@ -63,7 +62,6 @@ const userOrderVerify = async (req, res) => {
                 await orderObj.save();
                 userObj.cart.splice(0,userObj.orders.length);
                 await userObj.save();
-                // req.flash("success","Your Order was placed successfully");
                 console.log("Your Order was Placed successfully");
                 response = { status: "success", orderId: req.body.razorpay_order_id };
 
@@ -83,8 +81,7 @@ const userOrderVerify = async (req, res) => {
 
 const userPaymentErrorCode = (req, res) => {
     try{
-        const error = req.session.paymentError
-        res.render("user/paymentError",{error});
+        console.log('Order failure!');
     } catch(e) {
         console.log(e);
         res.status(404).render('error/error',{"status":"404"});
@@ -93,7 +90,7 @@ const userPaymentErrorCode = (req, res) => {
 
 const userOrderPAymentFail = (req, res) => {
     try{
-        req.session.paymentError=req.body.error;
+        console.log('payment failed!');
         res.send({"redirect":`/user/payment/${req.body.error.payment_id}/${req.body.error.payment_id}`})
     } catch(e) {
         console.log(e);

@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/css/starability-all.min.css"/>
   </head>
 <body>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 fixed-top">
         <div class="container">
           <a class="navbar-brand" href="/">T'DOU | Online Shopping</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,7 +24,7 @@
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="/">Home</a>
                     <% if(user) { %>
-                    <a class="dropdown-item" href="user/cart/<%=user.id%>">Cart</a>
+                    <a class="dropdown-item" href="/user/cart/<%=user.id%>">Cart</a>
                     <a class="dropdown-item" href="/user/order/history/<%=user.id%>">Your Orders</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/user/profile/<%=user.id%>">Profile</a>
@@ -35,8 +35,7 @@
                   <% if (user.role === "Admin" ) { %>
                     <li class="nav-item active">
                       <a class="nav-link" href="/admin">Admin
-                        <i class="fa fa-shield"></i>  
-                        <span class="sr-only">(current)</span>
+                        <i class="fa fa-shield"></i> 
                       </a>
                     </li>  
                     <% } }%>
@@ -68,15 +67,15 @@
           </div>
         </div>
       </nav>
-      <div class="container"><%- body %></div>
+      <div class="container pt-5 mt-5"><%- body %></div>
       <footer class="mt-5 bg-primary text-white">
         <div class="container pt-5 pb-5">
-          <div class="row border-bottom ">
+          <div class="row p-3 border-bottom ">
             <div class="col-md-3">
               <dl>
                 <dd>USEFUL LINKS</dd>
                 <dt><a href=""><small>Support</small></a></dt>
-                <dt><dt><a href="https://github.com/DMNCDLPRT/T170-T-DOU-FINAL-PROJECT">github</a></dt>
+                <dt><dt><a href="https://github.com/DMNCDLPRT/T170-T-DOU-FINAL-PROJECT"><small>Github</small></a></dt>
               </dl>
             </div>
             <div class="col-md-3">
@@ -95,16 +94,16 @@
             <div class="col-md-3">
               <dl>
                 <dd>GET SOCIAL</dd>
-                <dt><a href="https://web.facebook.com/profile.php?id=100009245202501"><i class="fab fa-facebook-f"></i></a></dt>
+                <dt><a href="https://web.facebook.com/profile.php?id=100009245202501"><i class="fab fa-facebook-f large"></i></a></dt>
                 <dt><a href="https://twitter.com/DominicPuerto"><i class="fab fa-twitter"></i></a></dt>
                 <dt><a href="https://www.instagram.com/dmnniicc"><i class="fab fa-instagram"></i></a></dt>
                 <dt><a href="https://github.com/DMNCDLPRT/T170-T-DOU-FINAL-PROJECT"><i class="fab fa-github"></i></a></dt>
               </dl>
             </div>
           </div>
-            <div class="text-center pt-5">
-                <a href="/"><img src="/images/logo-icon.png" alt="logo" style="width: 40px; height: 40px; object-fit: cover;"></a>
-                <p>® 2021 by T'DOU</p>
+            <div class="row text-center pt-5">
+                <a href="/" class="col"><img src="/images/logo-icon.png" alt="logo" style="width: 40px; height: 40px; object-fit: cover;"></a>
+                <p class="col">® 2021 by T'DOU</p>
             </div>
         </div>
       </footer>

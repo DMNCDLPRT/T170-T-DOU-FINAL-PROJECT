@@ -1,4 +1,4 @@
- const { Customer, validate } = require('../models/customer');
+const { Customer, validate } = require('../models/customer');
 const bcrypt = require('bcryptjs');
 
 const getAllCustomers = async (req, res) => {
@@ -32,28 +32,29 @@ const getUserProfileView = async (req, res) => {
 
 const addCustomer = async (req, res) => {
     const { error } = validate(req.body);
-    if(error){
-        const messageError = error.details[0].message;
-        return res.status(422).json({ error: messageError});
+    if(error) {
+        console.log(error);
+        return res.status(422).send(error.details[0].message);
     }
-    
+
     const data = req.body;
     console.log(data);
-    const { pssword: plainPassword } = req.body;
-
     if(await Customer.findOne({ username: data.username })){
-        return res.status(422).json({ error: 'error-username', message: 'Username already exist' });
+        return res.status(422).json({ error: 'error-username', message: 'Username already exist!' });
     }
     if(await Customer.findOne({ email: data.email })){
-        return res.status(422).json({ error: 'error-email', message: 'Email already in use' });
+        return res.status(422).json({ error: 'error-email', message: 'Email already in use!' });
     }
     if(await Customer.findOne({ phone: data.phone })){
-        return res.status(422).json({ error: 'error-contact', message: 'Contact already in use' })
+        return res.status(422).json({ error: 'error-contact', message: 'Contact already in use!' })
     }
-
+    if(data.pssword !== data.confirm){
+        return res.status(422).json({ error: 'error-password', message: 'Passwords do not match!' })
+    }
     try {
+        const { pssword: plainPassword } = req.body;
         const password = await bcrypt.hash(plainPassword, 10);
-        let user = new Customer({
+        let user = await new Customer({
             fullname: data.fullname,
             username: data.username,
             email: data.email,
@@ -62,12 +63,12 @@ const addCustomer = async (req, res) => {
             role: data.role
         });
         user = await user.save();
-
         console.log("Account created successfully")
         return res.status(200).json({ user: user._id });
-    } catch (error) {
-        console.log("errorerreere")
-        res.status(400).json({ error: 'something went wrong' });
+
+    } catch (e) {
+        console.log("errorerreere");
+        res.status(400).json({ error: 'Required fields must be filled in' });
     }
 }
 

@@ -1,4 +1,3 @@
-
 const{ Customer, login } = require('../models/customer');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -16,7 +15,7 @@ const createToken = (id, email, role) => {
 	});
 }
 
-const loginCustomer = async (req, res, next) => {
+const loginCustomer = async (req, res) => {
 	const { error } = login(req.body);
     if(error) return res.json({ status: 'error', error: details[0].message});
 

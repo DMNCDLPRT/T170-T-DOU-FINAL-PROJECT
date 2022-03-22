@@ -20,22 +20,18 @@ const viewAdminAllOrders = async (req, res) => {
             path:'orderList.item',
             model: Product        
         });
-        
         console.log(orders);
         
         res.render('admin/orderHistory',{ 
             orders,
             title: "Admin Order History" 
         })
-        // res.send(orders);
     }
     catch(e){
         console.log(e);
         res.status(404).render('error/error',{"status":"404"})
-    
     }
 }
-
 
 module.exports = {
     viewAdminProducts,

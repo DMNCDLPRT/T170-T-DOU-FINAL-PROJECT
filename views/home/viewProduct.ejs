@@ -25,14 +25,14 @@
             <div class="action-button d-flex flex-column align-items-center ">
                 <div class="form-group">
                     <div class="col">
-                        <%  let addtoCart
-                            if(user === "Guest") { 
-                                addtoCart='/loginCustomer' 
-                            } 
-                            else { 
-                                addtoCart=`/user/cart/${data._id}/${user.id}` 
-                            } %>
-                        <form action="<%=addtoCart%>" method="post" class="d-flex justify-content-evenly">
+                        <% let addtoCart
+                        if(user === "Guest"){
+                            addtoCart=`/user/cart/${data._id}/nouserfound`
+                        } else {
+                            addtoCart=`/user/cart/${data._id}/${user.id}`
+                        }
+                        %>
+                        <form action="<%=addtoCart%>" method="post" class="d-flex justify-content-evenly" id="addtocartform">
                             <div class="form-outline mr-2">
                                 <button type="submit" class="btn btn-success">Add to Cart</button>
                             </div>
@@ -43,7 +43,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <a href="/products/<%=data._id%>" class="btn btn-success"></a> -->
         </div>
     </div>
 
