@@ -154,5 +154,3 @@
 {"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-03-22T00:43:52.702Z"}
 {"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-03-22T00:43:57.841Z"}
 {"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-03-22T00:43:57.906Z"}
-{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-06-11T23:10:36.938Z"}
-{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-06-11T23:10:37.065Z"}
