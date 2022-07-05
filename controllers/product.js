@@ -101,7 +101,7 @@ const editProduct = async (req, res) => {
         const { id } = req.params.id;
         const data = req.body;
 
-        if(data.price <= Number(100000)){
+        if(data.price <= Number(1000000)){
             if (req.file != undefined) {
                 const file = path.join(__dirname + "/uploads/product/" + req.file.filename);
                 data.image = { data: fs.readFileSync(path.join(file)), contentType: "image/png",};

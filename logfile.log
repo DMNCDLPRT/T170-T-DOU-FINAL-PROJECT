@@ -154,3 +154,38 @@
 {"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-03-22T00:43:52.702Z"}
 {"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-03-22T00:43:57.841Z"}
 {"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-03-22T00:43:57.906Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T05:08:21.279Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T05:08:21.316Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T06:28:05.039Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T06:28:06.519Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T06:30:05.321Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T06:30:06.612Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T06:47:26.414Z"}
+{"message":"bad auth : Authentication failed.","stack":"MongoError: bad auth : Authentication failed.\n    at MessageStream.messageHandler (C:\\Users\\Dominic\\Documents\\GitHub\\T170-T-DOU-FINAL-PROJECT\\node_modules\\mongodb\\lib\\cmap\\connection.js:268:20)\n    at MessageStream.emit (node:events:527:28)\n    at processIncomingData (C:\\Users\\Dominic\\Documents\\GitHub\\T170-T-DOU-FINAL-PROJECT\\node_modules\\mongodb\\lib\\cmap\\message_stream.js:144:12)\n    at MessageStream._write (C:\\Users\\Dominic\\Documents\\GitHub\\T170-T-DOU-FINAL-PROJECT\\node_modules\\mongodb\\lib\\cmap\\message_stream.js:42:5)\n    at writeOrBuffer (node:internal/streams/writable:389:12)\n    at _write (node:internal/streams/writable:330:10)\n    at MessageStream.Writable.write (node:internal/streams/writable:334:10)\n    at TLSSocket.ondata (node:internal/streams/readable:754:22)\n    at TLSSocket.emit (node:events:527:28)\n    at addChunk (node:internal/streams/readable:315:12)\n    at readableAddChunk (node:internal/streams/readable:289:9)\n    at TLSSocket.Readable.push (node:internal/streams/readable:228:10)\n    at TLSWrap.onStreamRead (node:internal/stream_base_commons:190:23)","ok":0,"code":8000,"codeName":"AtlasError","name":"MongoError","level":"error","timestamp":"2022-07-04T06:47:28.393Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T06:47:42.610Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T06:47:51.007Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T06:48:48.973Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T06:48:55.367Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T06:49:26.447Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T06:49:36.415Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T06:55:19.797Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T06:55:20.838Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T06:57:16.855Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T06:57:17.924Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T06:57:19.382Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T06:57:21.699Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T06:57:22.540Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T06:57:26.779Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T06:57:27.790Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T06:57:37.220Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T06:57:38.171Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T07:03:07.713Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T07:03:12.366Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T10:12:30.496Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T10:12:31.634Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T10:33:16.420Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T10:33:17.486Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T10:35:41.159Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T10:35:42.344Z"}
+{"level":"info","message":"App is listening on url http://localhost:3000","timestamp":"2022-07-04T10:37:46.713Z"}
+{"level":"info","message":"MongoDb connected successfuly...","timestamp":"2022-07-04T10:37:47.830Z"}
